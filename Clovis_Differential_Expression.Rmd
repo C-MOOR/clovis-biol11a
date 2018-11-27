@@ -1,6 +1,6 @@
 ---
 title: "Differential Expression with DESeq2"
-output: 
+output:
   learnr::tutorial:
     progressive: true
 runtime: shiny_prerendered
@@ -16,7 +16,7 @@ library("clusterProfiler")
 library("org.Dm.eg.db")
 library("tidyverse")
 
-formatDESeq2Results <- function( x ) { 
+formatDESeq2Results <- function( x ) {
   df <- as.data.frame(x)
   df <- data.frame(rownames(df), df)
   colnames(df) <- c("GeneID", colnames(df)[-1])
@@ -30,7 +30,7 @@ runClusterProfiler <- function (x) {
   return(kegg)
 }
 
-plotAcrossRegions <- function( x ) { 
+plotAcrossRegions <- function( x ) {
   df <- data.frame(counts(midgut)[x,], midgut_tsv$condition)
   colnames(df) <- c("counts", "region")
   df <- df[10:30,]
@@ -51,13 +51,13 @@ midgut <- DESeq(midgut)
 
 In the previous lab, we looked at a single HT-seq file, which provides gene expression data for one sample. Let's consider an example from Marianes and Spalding et al. Recall that they compared many RNA-seq samples from different regions of the midgut in *Drosophilia melanogaster* (Figure 2A, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/))
 
-![Figure 2A](https://c-moor.github.io/images/elife-00886-fig2A.jpg){ width=100% }
-**Figure 1A** Diagram illustrating the different RNA-seq libraries constructed by Marianes and Spalding 2013 from the Drosophila midgut.
+![Figure 2A](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2A.jpg){ width=100% }
+**Figure 2A** Diagram illustrating the different RNA-seq libraries constructed by Marianes and Spalding 2013 from the Drosophila midgut.
 
-From an HT seq file, we can learn that the *lab* gene is highly expressed in the Cu region of the *Drosophlia* midgut. But, does that mean the *lab* gene is important for cells of the Cu region? Maybe, maybe not. It could be that *lab* is expressed at that level across the whole midgut or possible even the whole fly. To really answer questions about gene expression, we need to compare more than one sample with each other. Which samples are compared depends on the scientific question being asked. In terms of the *lab* gene, Marianes and Spalding analyzed its expression in each region of the gut and determined that it is localized to the Cu region (Figure 1D, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/)). This is a clue that *lab* is important in the Cu region.
+From an HT seq file, we can learn that the *lab* gene is highly expressed in the Cu region of the *Drosophlia* midgut. But, does that mean the *lab* gene is important for cells of the Cu region? Maybe, maybe not. It could be that *lab* is expressed at that level across the whole midgut or possible even the whole fly. To really answer questions about gene expression, we need to compare more than one sample with each other. Which samples are compared depends on the scientific question being asked. In terms of the *lab* gene, Marianes and Spalding analyzed its expression in each region of the gut and determined that it is localized to the Cu region (Figure 2D, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/)). This is a clue that *lab* is important in the Cu region.
 
-![Figure 2D](https://c-moor.github.io/images/elife-00886-fig2D.jpg){ width=100% }
-**Figure 1D** Analysis of seven genes and their gene expression across each region of the gut.
+![Figure 2D](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2D.jpg){ width=100% }
+**Figure 2D** Analysis of seven genes and their gene expression across each region of the gut.
 
 In today's lab we will learn a hand-full of methods for looking at gene expression across the *Drosophila* midgut. As you work through the lab, keep your group's scientific question in mind. You will not need all of the methods to answer your question. Also think about which samples you will need to compare to answer your question.
 
@@ -224,7 +224,7 @@ midgut <- DESeq(midgut)
 
 Your job is to explore the results from DESeq2 and try to figure out what they mean biologically.  DESeq2 just reports statistical calculations, giving each gene scores for how different it is between samples.  It's the job of a scientist to look through that information and decide what it **means**.
 
-### Looking at results from DESeq2 
+### Looking at results from DESeq2
 
 We have stored the results from DESeq2 in an object named `midgut`.  This is a special object made by DESeq2, with lots of dataframes inside it.  You can access the dataframe of results for a particular comparison using the `results()` command.  This process takes two steps:
 

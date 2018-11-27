@@ -590,7 +590,7 @@ This pattern is fairly typical for RNAseq data.  There is a peak near zero, cont
 
 Here is a simpler histogram of some RNAseq data.  We have reduced the number of "bins" (bars), so that it will be easier to answer questions about the plot.  This plot is also *Drosophila* data, though it's from a different sample than the one we've been analyzing so far.  After getting some practice interpreting this graph, you'll take another look at the `readCounts` data you've been working with.
 
-![Log10 Read Counts for Drosophila RNAseq sample 2](https://c-moor.github.io/images/Histogram_example.png)
+![Log10 Read Counts for Drosophila RNAseq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
 
 ### Answer the following questions about the above plot.
 ```{r, practice-hist-quiz, echo=FALSE}
@@ -639,7 +639,7 @@ quiz(caption="Histogram Practice",
 
 Take a look at this graph again.  
 
-![Log10 Read Counts for Drosophila RNAseq sample 2](https://c-moor.github.io/images/Histogram_example.png)
+![Log10 Read Counts for Drosophila RNAseq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
 
 For this *Drosophila* sample, we expect there to be 17559 genes.
 
