@@ -70,5 +70,5 @@ Some tutorials link to Youtube videos.
 * Stephanie Coffman (Clovis Community College, Fresno, CA)
 
 ### Images
-* The elife images are from: Marianes and Spradling (2013)[Physiological and stem cell compartmentalization within the Drosophila midgut](https://elifesciences.org/articles/00886) eLife 2013;2:e00886 and are licensed under a Creative Commons Attribution license (CC-BY)
+* The elife images are from: Marianes and Spradling (2013) [Physiological and stem cell compartmentalization within the Drosophila midgut.](https://elifesciences.org/articles/00886) eLife 2013;2:e00886.  They are licensed under a Creative Commons Attribution license (CC-BY).
 * The histogram image was created by C-MOOR

@@ -1,6 +1,6 @@
 ---
 title: "Introduction to RNA-seq data"
-output: 
+output:
   learnr::tutorial:
     progressive: true
 runtime: shiny_prerendered
@@ -65,9 +65,9 @@ Before transcriptome samples can be sequenced, scientists must (1) change the mR
 We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
 
  It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing. There are a few methods for next-gen sequencing, but we will focus on Illumina sequencing.
- 
+
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Illumina_HiSeq_2500.jpg/440px-Illumina_HiSeq_2500.jpg){width=47.5%} ![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Next_generation_sequencing_slide.jpg/1600px-Next_generation_sequencing_slide.jpg){width=51.1%}
- 
+
 Illumina Sequencing uses a method called sequencing by synthesis. To prepare a RNA-seq sample, the cDNA is first fragmented into 100-200bp pieces and special adapters are attached to the ends of the fragmented cDNA. These adapters will be important for sequencing the cDNA. At this point, the samples are usually sent off to a facility that has an Illumina Sequencer machine (Figure 2a).
 
 At the sequencing facility, the sample is loaded into a lane on a special glass chip (Figure 2b). The chip is covered with millions of DNA sequences complementary to the special adapters. This complementarity will allow the adapters on the cDNA fragments to hybridize with the DNA molecules in the lane. The chip, which can hold up to eight samples, is then loaded into an Illumina Sequencing machine. Through a process known as bridge amplification, each individual cDNA fragment is amplified. This step is important to increase the signal from each cDNA fragment to the computer, which cannot detect a single DNA molecule.  The final result is 150 million clusters of DNA molecules, one for each of the original cDNA fragments. Now, we can finally start sequencing the cDNA fragments. To identify each base of the sequence, the four DNA nucleotides (A, T, G, C) are labeled with a different color. The first base is added to each of the millions of clusters and the computer records the first base identity for all the clusters. A second base is added to every cluster and the computer records the second base. This continues for 50-100bp. This process is known as sequencing by synthesis. One lane can produce **up to 150 million short sequences** each corresponding to one cluster in the lane. Once the sequencing is complete, the data is sent back to the scientists for analysis.
@@ -118,8 +118,8 @@ quiz(caption="RNA sequencing",
 ### In silico – Computational Analysis
 
 Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**. When biologists use computer science to answer questions about biology, usually related to macromolecules (e.g. RNA and DNA), it is called **bioinformatics**. As scientists continue to collect more and more data, the field of bioinformatics continues to grow.
-	
-Today's lab will investigate how scientists use computer science to analyze RNA-seq data. In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. The data you will look at today has already been processed using a program called HTseq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTseq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTseq file using the programming language R. 
+
+Today's lab will investigate how scientists use computer science to analyze RNA-seq data. In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. The data you will look at today has already been processed using a program called HTseq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTseq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTseq file using the programming language R.
 
 
 
@@ -310,7 +310,7 @@ It's always a good idea to take a quick look at your data, see if it makes sense
 * Summarize the data
     + What's the mean and median value of numeric columns? Does this make sense?
 
-For the code below, an htseq file has been stored as a dataframe named `readCounts`. 
+For the code below, an htseq file has been stored as a dataframe named `readCounts`.
 Use some R commands to explore the read count data from the htseq file, and see if it makes sense to you.  What's in each column?  Are the values reasonable?  You can look at the R Cheat Sheet page or click on the hint button if you need help.
 
 ```{r explore-htseq-exercise, exercise=TRUE, exercise.lines=10}
@@ -346,7 +346,7 @@ Use the codeblock above to enter some R commands and answer the following questi
    answer("Read counts", correct = TRUE),
    allow_retry=TRUE
    ),
-   
+
    question("How many genes are in this dataset?",
     answer("267795"),
     answer("17559", correct = TRUE),
@@ -355,7 +355,7 @@ Use the codeblock above to enter some R commands and answer the following questi
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
-  
+
   question("What is the lowest read count for any gene?",
     answer("1"),
     answer("0", correct = TRUE),
@@ -548,7 +548,7 @@ quiz(caption = "Is this dataset any good?",
     allow_retry = TRUE,
     random_answer_order = TRUE
   )
-) 
+)
 ```
 
 ## Graphing RNAseq Data
@@ -762,7 +762,7 @@ The remaining samples come from smaller subsections of these large regions:
 * `a1`
 * `a2_3`
 * `Cu`
-* `LFC`
+* `LFCFe`
 * `Fe`
 * `p1`
 * `p2_4`
@@ -773,7 +773,7 @@ For each region, there are 3 data files, each containing RNA-seq data.  We colle
 
 The following table lists the filename for each sample:
 ```{r}
-read.table("https://c-moor.github.io/data/midgut.tsv", header=TRUE)
+read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/data/midgut.tsv", header=TRUE)
 ```
 
 Use the table to figure out the file name (starting with "SRR") for the sample you want to examine.  Use the codeblocks below to explore the data, calculating summary statistics and plotting out histograms.  There are several blocks for your convenience, use as many as you like.

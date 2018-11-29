@@ -42,7 +42,7 @@ plotAcrossRegions <- function( x ) {
 
 download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
 untar( "data.tgz" )
-midgut_tsv <- read.table("https://c-moor.github.io/data/midgut.tsv", header=TRUE)
+midgut_tsv <- read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/data/midgut.tsv", header=TRUE)
 midgut <- DESeqDataSetFromHTSeqCount(midgut_tsv, "data/", design = ~condition)
 midgut <- DESeq(midgut)
 ```
@@ -216,7 +216,7 @@ Since setting up DESeq2 is a little complicated, we've gone ahead and run the co
 
 
 ```{r setup-DESeq2, echo=TRUE, eval=FALSE, message=FALSE}
-midgut_tsv <- read.table("https://c-moor.github.io/data/midgut.tsv", header=TRUE)
+midgut_tsv <- read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/data/midgut.tsv", header=TRUE)
 midgut <- DESeqDataSetFromHTSeqCount(midgut_tsv, "data/", design = ~condition)
 midgut <- DESeq(midgut)
 ```
