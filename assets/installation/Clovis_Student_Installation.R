@@ -1,0 +1,10 @@
+install.packages("learnr")
+install.packages("tidyverse")
+install.packages("caTools")
+install.packages("bitops")
+
+source("https://bioconductor.org/biocLite.R")
+biocLite("DESeq2", suppressUpdates=TRUE)
+biocLite("clusterProfiler", suppressUpdates=TRUE)
+biocLite("org.Dm.eg.db", suppressUpdates=TRUE)
+print("All done!")

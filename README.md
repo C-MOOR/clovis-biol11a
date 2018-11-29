@@ -17,6 +17,9 @@ These tutorials were developed and run using:
 * `learnr` version 0.9.2.1 (and its dependencies)
 * Additionally, we needed `caTools` and `bitops`, which were not automatically installed by `learnr`
 
+## Instructions
+The installation instructions and install script that we provided to students are included in assets/installation.  The install script simply tries to install each required R package; it does not check for successful installs.  Pay attention to the error messages if you're having trouble running the tutorials.
+
 ## R packages for tutorials
 
 ### All tutorials
