@@ -1,8 +1,13 @@
 ---
 title: "Introduction to R"
-output: 
+output:
   learnr::tutorial:
     progressive: true
+    allow_skip: true
+    version: 1.0
+subtitle: |
+  | ![](https://raw.githubusercontent.com/C-MOOR/rnaseq/master/assets/styling/cmoor_logo_notext.png){width=50%}
+  | [Get Help](https://c-moor.github.io/help/)
 runtime: shiny_prerendered
 ---
 
@@ -12,6 +17,29 @@ library(tidyverse)
 tutorial_options(exercise.completion=TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Welcome {.splashpage}
+
+![](https://raw.githubusercontent.com/C-MOOR/rnaseq/master/assets/styling/cmoor_logo_text_horizontal.png){width=100%}
+
+```{r}
+# Extract the tutorial version from the YAML data and store it so we can print it using inline r code below.  This can't be done directly inline because the code for extracting the YAML data uses backticks
+tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
+```
+
+#### Learning Objectives:
+Use R to...
+
+1. Carry out basic mathematical calculations and store results
+2. Carry out calculations on vectors (lists of numbers)
+3. Explore a table of data (data.frame), calculate summary statistics, and filter out subsets of data.
+4. Create basic plots
+
+#### Authors:
+* [Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)
+
+#### Version: `r tv`
+
 
 ## R as a calculator
 
@@ -165,7 +193,7 @@ inches * 0.0254
 
 R is very good at working with tables of data, the types of data you might typically store in a spreadsheet.  R has many functions for organizing the data, pulling out data matching particular qualities, and running calculations on the data.
 
-R comes with some built-in practice datasets, we’ll start by exploring the `iris` dataset, a famous dataset containing measurements of petals and sepals of 3 different species of iris. 
+R comes with some built-in practice datasets, we’ll start by exploring the `iris` dataset, a famous dataset containing measurements of petals and sepals of 3 different species of iris.
 
 We can print out the whole dataframe by typing its name:
 ```{r, echo=TRUE}
@@ -196,7 +224,7 @@ This dataframe isn’t too large, so it’s fine to print out the whole thing, t
         + `filter(iris, str_detect(species, "ic"))` would pick out all rows (flowers) with a species name containing "ic" - in this case it would pick out both vers**ic**color and virgin**ic**a, but not setosa.
     + You can combine multiple condition using the `&` symbol:
         + `filter(iris, species=="virginica" & Petal.Length >=1.5)` would pick out all virginica species with Petal Length greater than 1.5
-    
+
 * You can store the results in new variables.  This can be extremely useful if you just want to work with some of the data:
     + `petal_length <- iris$Petal.Length`
     + `virginica_data <- filter(iris, species=="virginica"")`
@@ -334,10 +362,3 @@ Use the code block below to plot some of the `mtcars` data.  Try plotting mpg (`
 
 ```{r plotting-exercise, exercise=TRUE}
 ```
-
-
-### Submit your work on canvas
-
-Submit a screenshot of your `mtcars` plot on Canvas.
-
-You're done!
