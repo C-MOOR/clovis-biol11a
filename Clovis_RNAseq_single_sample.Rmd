@@ -10,14 +10,6 @@ runtime: shiny_prerendered
 ---
 
 
-```{r, cache=TRUE}
-library(tidyverse)
-download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
-untar( "data.tgz" )
-i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
-income <- as.numeric(i$X8)
-```
-
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
@@ -25,8 +17,8 @@ tutorial_options(exercise.completion=TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 options(scipen=5)
 
-# download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
-# untar( "data.tgz" )
+download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
+untar( "data.tgz" )
 
 # Get an single file as a data.frame (readcounts) for use in student coding blocks.
 # Also make a labeled version (a).
@@ -35,8 +27,8 @@ readCounts <- filter(readCounts, str_detect(V1, "FBgn"))
 a <- readCounts
 colnames(a) <- c("GeneID", "readCount")
 
-# i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
-# income <- as.numeric(i$X8)
+i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
+income <- as.numeric(i$X8)
 ```
 
 ## Welcome {.splashpage}
