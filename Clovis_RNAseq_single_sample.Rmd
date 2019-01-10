@@ -3,8 +3,20 @@ title: "Introduction to RNA-seq data"
 output:
   learnr::tutorial:
     progressive: true
+    version: 1.1
+subtitle: |
+  | ![](https://raw.githubusercontent.com/C-MOOR/rnaseq/master/assets/styling/cmoor_logo_notext.png){width=50%}
 runtime: shiny_prerendered
 ---
+
+
+```{r, cache=TRUE}
+library(tidyverse)
+download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
+untar( "data.tgz" )
+i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
+income <- as.numeric(i$X8)
+```
 
 ```{r setup, include=FALSE}
 library(learnr)
@@ -13,22 +25,34 @@ tutorial_options(exercise.completion=TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 options(scipen=5)
 
-download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
-untar( "data.tgz" )
+# download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
+# untar( "data.tgz" )
 
-a <- read.table( "data/SRR891601.htseq" )
-readCounts <- a
+# Get an single file as a data.frame (readcounts) for use in student coding blocks.
+# Also make a labeled version (a).
+readCounts <- read.table( "data/SRR891601.htseq" )
+readCounts <- filter(readCounts, str_detect(V1, "FBgn"))
+a <- readCounts
 colnames(a) <- c("GeneID", "readCount")
 
-i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
-income <- as.numeric(i$X8)
+# i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
+# income <- as.numeric(i$X8)
 ```
 
-## Introduction: Analysis of RNA-seq data
+## Welcome {.splashpage}
+
+![](https://raw.githubusercontent.com/C-MOOR/rnaseq/master/assets/styling/cmoor_logo_text_horizontal.png){width=100%}
+
+```{r}
+# Extract the tutorial version from the YAML data and store it so we can print it using inline r code below.  This can't be done directly inline because the code for extracting the YAML data uses backticks
+tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
+```
+
+#### Introduction: Analysis of RNA-seq data
 
 This lab will introduce you to real RNA-seq data, just like professional scientists work with.  Today you will learn what RNA-seq data looks like and will spend some time exploring data from a single biological sample.  In the next lab you will learn how to compare RNA-seq data from different samples.
 
-### Learning Goals
+#### Learning Goals
 
 1. Compare and contrast the genome and the transcriptome
 2. Describe the steps involved in RNA-seq
@@ -36,7 +60,15 @@ This lab will introduce you to real RNA-seq data, just like professional scienti
 4. Use R to analyze HTSeq files
 5. Create and analyze histograms from HTSeq files
 
-### Introduction
+#### Authors:
+* [Dr. Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)
+* [Dr. Stephanie Coffman](https://c-moor.github.io/portfolio/coffmanstephanie/)
+
+
+#### Version: `r tv`
+
+
+## Introduction
 
 All of your somatic cells contain the same complete set of genetic information (**genome**), yet a skeletal muscle cell differs greatly from a neuron in both appearance and function. The differences between these cell types are due to **differential gene expression**, or expression of different genes by cells with the same genome. Cells can also change their gene expression in response to environmental cues. For example, virus-infected cells in humans can release a signaling molecule called interferon. Interferon serves as a messenger, warning nearby cells of the virus' presence. When the interferon reaches the neighboring cell, it triggers a signaling cascade which ultimately leads to a change in gene expression. Having received the warning, the cells will increase expression of genes required to fight off a virus. After the viral threat is gone, the cell's gene expression will return to normal. Such dynamic regulation of gene expression is necessary for both multicellular and unicellular organisms to respond to and interact with their environment.
 
@@ -55,11 +87,21 @@ question("How does a skin cell differ from a kidney cell?",
 ```
 
 
-### *In vivo* – Eukaryotic Gene Expression
+## *In vivo* – Eukaryotic Gene Expression
 
 To understand how scientists isolate and sequence mRNA, we must review how mRNA is made in a eukaryotic cell. In eukaryotes, transcription occurs in the nucleus, where the information in the DNA is transcribed into a pre-mRNA molecule containing both **exons** (protein-coding sequences) and **introns** (non-protein coding regions). The introns are ultimately spliced out, connecting the exons into one message that can be used to build a protein. On the 3' end of the mRNA, about 200 extra adenines are added, creating the Poly-A tail. This Poly-A tail is important for distinguishing mRNA from other types of RNA in the cell. Additionally, a cap is added to the 5' end of the mRNA.
 
-### *In vitro* – RNA sequencing
+```{r question-in-vivo-RNA}
+question("Which of the following are features of a mature (complete) mRNA molecule?  HINT: Choose more than one answer.",
+  answer("Introns"),
+  answer("Exons", correct=TRUE),
+  answer("5' cap", correct=TRUE),
+  answer("Poly-A tail", correct=TRUE),
+  allow_retry = TRUE
+)
+```
+
+## *In vitro* – RNA sequencing
 Before transcriptome samples can be sequenced, scientists must (1) change the mRNA into DNA, and (2) purify the mRNA (i.e. remove other cellular RNAs).
 
 We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
@@ -115,7 +157,7 @@ quiz(caption="RNA sequencing",
 ```
 
 
-### In silico – Computational Analysis
+## In silico – Computational Analysis
 
 Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**. When biologists use computer science to answer questions about biology, usually related to macromolecules (e.g. RNA and DNA), it is called **bioinformatics**. As scientists continue to collect more and more data, the field of bioinformatics continues to grow.
 
@@ -264,7 +306,6 @@ Here is a reminder of some basic R commands, for your convenience:
 * `summary(df)` prints some summary statistics for each column of the dataframe named `df`, such as min, mean, median, and max for numeric columns
 * `log(v)`, `log(v, 10)` if `v` is a vector of numbers, these will return a vector containining the natural log or log10 of the items in `v`
 * `plot(x,y)` plots the vector `x` against the vector `y`. Usually this will be a scatterplot, but R will try to guess a sensible plot if you give it data that doesn't fit in a scatter plot
-* `hist(v)` is a specialized version of plot, which will generate a histogram of the items in the vector `v`
 
 You can "filter" a dataframe (pick out only some of the rows and columns).  Some examples:
 
@@ -279,10 +320,17 @@ You can usually combine commands any way you like, using parentheses.  As long a
 
 * `sum(df$c)` finds the sum of the the column named `c` in the dataframe named `df`
 * `plot(df$c, df$d)` plots columns of the dataframe named `df`, putting the column named `c` on the x axis and the column named `d` on the y axis
+
+Here are commands for plotting basic histograms in R:
+
+* `hist(v)` is a specialized version of plot, which will generate a histogram of the items in the vector `v`
+* `hist(v, breaks=10)` makes a histogram with 10 bars
+* `hist(v, breaks=c(5,10,15) )` makes a histogram that splits the data into bins at the points listed in the command.  For this example, the first bar would contain values from 0 to 5; the second bar would contain values from 5 to 10; and the third bar would contain values from 10 to 15.
 * `hist(log(v))` plots a histogram of the natural log of the values in the vector named `v`
+* `hist(log(v) + 0.1)` plots a histogram of the natural log of the values in the vector named `v` + 0.1.  This is useful for plotting data that contains values of zero.
 
 
-## Exploring RNA-seq Data
+## First Look at RNA-seq Data
 
 ### HTSeq files: read count data
 
@@ -296,7 +344,7 @@ Here is an example of an htseq file, with RNA-seq data from *Drosophila melanoga
 head(a)
 ```
 
-In this file, the gene identifiers look like this: FBgnXXXXXXX, with the X's being different numbers.  FB stands for FlyBase, a database for *Drosophila* research, and gn stands for gene.  There are ~17000 *Drosophila melanogaster* genes.  Each known *Drosophila* gene has its own FlyBase ID, and you can use the FlyBaseID to find information about the genes such as what they do and whether they are related to any human genes.
+In this file, the gene identifiers look like this: FBgnXXXXXXX, with the X's being different numbers.  FB stands for [FlyBase](http://flybase.org), a database for *Drosophila* research, and gn stands for gene.  There are ~17000 *Drosophila melanogaster* genes.  Each known *Drosophila* gene has its own FlyBase ID, and you can use the FlyBaseID to find information about the genes such as what they do and whether they are related to any human genes.
 
 
 ### Taking a first look at your data
@@ -311,7 +359,7 @@ It's always a good idea to take a quick look at your data, see if it makes sense
     + What's the mean and median value of numeric columns? Does this make sense?
 
 For the code below, an htseq file has been stored as a dataframe named `readCounts`.
-Use some R commands to explore the read count data from the htseq file, and see if it makes sense to you.  What's in each column?  Are the values reasonable?  You can look at the R Cheat Sheet page or click on the hint button if you need help.
+Use some R commands to explore the read count data from the htseq file, and see if it makes sense to you.  What's in each column?  Are the values reasonable?  **You can look at the R Cheat Sheet page or click on the Hints button if you need help.**
 
 ```{r explore-htseq-exercise, exercise=TRUE, exercise.lines=10}
 readCounts
@@ -332,7 +380,7 @@ summary()
 
 ### Explore an example htseq file
 
-Use the codeblock above to enter some R commands and answer the following questions about the RNAseq data.  If you need help, try clicking the "hint" button at the top of the codeblock (above).
+Use the codeblock above to enter some R commands and answer the following questions about the RNA-seq data.  **If you need help, try clicking the "Hints" button at the top of the codeblock (above) or look at the R Cheat Sheet page.**
 
  ```{r explore-htseq-quiz, echo=FALSE}
  quiz(caption = "What is this data?",
@@ -348,10 +396,10 @@ Use the codeblock above to enter some R commands and answer the following questi
    ),
 
    question("How many genes are in this dataset?",
-    answer("267795"),
+    answer("267795", message="This is the FlyBase ID number of the last gene, but not all FlyBase genes are present in this dataset"),
     answer("17559", correct = TRUE),
-    answer("17564", message = "Take a look at the last few rows.  Are these genes?"),
-    answer("9501602"),
+    answer("10000", message = "To save space, R only shows the first 10,000 rows if you try to print out the whole dataframe.  Try using some R commands to look at the dimensions of the dataframe or to print out the last few rows"),
+    answer("1140105", message="This is the number of reads for the most highly expressed gene, not the number of genes"),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
@@ -367,29 +415,12 @@ Use the codeblock above to enter some R commands and answer the following questi
  )
  ```
 
-### A warning about htseq files
+## Summary Statistics for RNA-seq
 
-As you may have noticed, the last few rows in an htseq file are not genes.  Instead they are reads that could not be matched to a gene, for various reasons.
-
-* `__not_aligned` means the read did not match to the DNA at all
-* `__too_low_aQual` means the read matched very badly, so the program doesn't count this as a "real" match
-* `alignment_not_unique` means the read matched to multiple different places on the genome, so we don't know where it really came from
-* `__ambiguous` means the read matched to a single location on the DNA but matches to multiple genes, so we don't know which gene it really came from (this can happen if genes are very close together or overlap with each other).  This is different from `alignment_not_unique` because we know exactly where the read came from, we just can't tell which gene it was a part of
-* `__no_feature` means the read matched to the DNA, but at a spot that is not part of a known gene.
-
-These unmatched reads can cause problems when we're trying to summarize our data.  For example, if you run `summary()` on the full dataframe, the mean read count will include these unmatched reads, which often have a much higher number of reads than any individual gene.
-
-
-### Summary Statistics for RNAseq
-
-When you first look at a new RNAseq dataset, there are some important questions you should ask to get an idea of the quality of your data:
+When you first look at a new RNA-seq dataset, there are some important questions you should ask to get an idea of the quality of your data:
 
 * How many total reads are in this data set?
     + This tells you how much raw data you have
-* What percentage of the reads aligned to genes?
-    + This tells you something about the quality of your data.  If a large percentage of the reads do not match up to a gene, something may have gone wrong during sample preparation.
-* What percentange of the reads aligned to a location that is not part of a known gene?
-    + Reads that align to the genome outside of known genes may be from undiscovered genes (which would be exciting!), but are often from DNA contamination during sample preparation.
 * What are the mean, median, and max read counts for the genes?
 * How many genes have zero reads?
 
@@ -397,29 +428,20 @@ In general, the values that you expect as an answer to these questions will vary
 
 ### Summarize an example htseq file
 
-Use the codeblock below to run R commands and answer the following questions about the RNAseq data.  Think carefully about whether to use the whole dataframe (including unmatched reads) or exclude the last few rows (including only the individual genes) as you answer the questions.  
-
-The code for loading the data into a dataframe named `readCounts` has already been run for you.  The code for selecting only the rows that are genes (using the `filter` and `str_detect` commands to pick out all rows that contain "FBgn" in column V1) has been entered in the codeblock below; this data is stored in a dataframe named `genesOnly`.  You do not need to edit this code, but add some code beneath it to answer questions about the data.  If you accidentally delete the top lines or want to start over, you can click the “Start Over” button at the top of the box.  If you need a hint, click the hint button at the top of the box.
+Use the codeblock below to run R commands and answer the following questions about the RNA-seq data.  The code for loading the data into a dataframe named `readCounts` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
 
 ```{r summarize-htseq-exercise, exercise=TRUE}
 readCounts
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
 ```
 
 ```{r summarize-htseq-exercise-hint-1}
 "
+Hint: How many total reads are in this dataset?
 Use the sum command.
 "
 ```
 
 ```{r summarize-htseq-exercise-hint-2}
-"
-Hint: How many total reads are in this dataset?
-We want the total number of reads, not just those that aligned to genes
-"
-```
-
-```{r summarize-htseq-exercise-hint-3}
 "
 Hint: How many total reads are in this dataset?
 HTseq files don't have column names, so R gives default column names of V1 and V2
@@ -428,62 +450,26 @@ df$V1 would select the first column of a dataframe named df.
 "
 ```
 
-```{r summarize-htseq-exercise-hint-4}
+```{r summarize-htseq-exercise-hint-3}
 "
 Hint: How many total reads are in this dataset?
 "
 sum(readcounts$V2)
 ```
 
-```{r summarize-htseq-exercise-hint-5}
-"
-Hint: How many reads aligned to (unique) genes?
-In this case we want the sum of all the reads that aligned to genes, leaving out the reads that did not align or aligned weirdly.
-"
-```
-
-```{r summarize-htseq-exercise-hint-6}
-"
-Hint: What percentage of the reads aligned to (unique) genes?
-Divide the number of reads that aligned to genes by the total number of reads.
-"
-
-```
-
-```{r summarize-htseq-exercise-hint-7}
-"
-Hint: How many reads aligned at locations that are not part of a known gene?
-Find the number of genes categorized as __no_feature
-"
-```
-
-```{r summarize-htseq-exercise-hint-8}
-"
-Hint: How many reads aligned at locations that are not part of a known gene?
-Use the filter command to pull out the row where the gene name is '__no_feature'
-"
-```
-
-```{r summarize-htseq-exercise-hint-9}
-"
-Hint: How many reads aligned at locations that are not part of a known gene?
-"
-filter(readCounts, V1=="--no_feature")
-```
-
-```{r summarize-htseq-exercise-hint-10}
+```{r summarize-htseq-exercise-hint-4}
 "Hint: What is the mean read count for these genes?
 Use the mean command or the summary command
 "
 ```
 
-```{r summarize-htseq-exercise-hint-11}
+```{r summarize-htseq-exercise-hint-5}
 "Hint: What is the median read count for these genes?
 Use the median command or the summary command
 "
 ```
 
-```{r summarize-htseq-exercise-hint-12}
+```{r summarize-htseq-exercise-hint-6}
 "
 Hint: What is the highest read count for any gene?
 Use the max command or the summary command
@@ -491,43 +477,19 @@ Use the max command or the summary command
 ```
 
 ```{r summarize-htseq-quiz, echo=FALSE}
-quiz(caption = "Is this dataset any good?",
+quiz(caption = "Summary statistics for RNA-seq",
   question("How many total reads are in this data set?",
     answer("17559"),
-    answer("28788855", correct = TRUE),
-    answer("9501602"),
+    answer("18250333", correct=TRUE),
+    answer("1140105"),
     answer("267795"),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
-    question("How many reads aligned to (unique) genes?",
-    answer("17559"),
-    answer("18250333", correct = TRUE),
-    answer("28788855", message = "We want the sum of all the reads that aligned to genes, leaving out the reads that did not align or aligned weirdly"),
-    answer("267795"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-    question("What percentage of the reads aligned to (unique) genes?  Round to the nearest whole percent.",
-    answer("94%"),
-    answer("63%", correct = TRUE),
-    answer("37%"),
-    answer("6%"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("How many reads aligned at locations that are not part of a known gene?",
-   answer("866605"),
-   answer("170315", correct = TRUE),
-   answer("9501602"),
-   answer("18250333"),
-   allow_retry = TRUE,
-   random_answer_order = TRUE
- ),
     question("What is the mean read count for all genes?",
     answer("5"),
     answer("1039", correct = TRUE),
-    answer("1639", message = "We want the sum of all the reads that aligned to genes, leaving out the reads that did not align or aligned weirdly"),
+    answer("253"),
     answer("0"),
     allow_retry = TRUE,
     random_answer_order = TRUE
@@ -536,14 +498,14 @@ quiz(caption = "Is this dataset any good?",
     answer("0"),
     answer("5", correct = TRUE),
     answer("1039"),
-    answer("1639"),
+    answer("253"),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
   question("What is the highest read count for any gene?",
     answer("17559"),
     answer("1140105", correct = TRUE),
-    answer("9501602", message = "We want the highest gene read count, leaving out the reads that did not align or aligned weirdly"),
+    answer("18250333"),
     answer("267795"),
     allow_retry = TRUE,
     random_answer_order = TRUE
@@ -551,16 +513,14 @@ quiz(caption = "Is this dataset any good?",
 )
 ```
 
-## Graphing RNAseq Data
-
-### Histograms
+## Histograms of RNA-seq Data
 
 #### Before You Start
 
 - A good way to get a preliminary look at RNA-seq data is to use a histogram of gene expression.  If you're not comfortable with histograms, check out the *Histograms* tab.
 - Because RNA-seq data has such wide-ranging values, it is often plotted on a log scale.  If you're not sure how this works, check out the *Logarithms and Log Scaling* tab.
 
-#### Plotting RNAseq data
+#### Plotting RNA-seq data
 
 A histogram can give us an idea of the shape of our data:
 
@@ -568,29 +528,25 @@ A histogram can give us an idea of the shape of our data:
 * How many genes have high numbers of reads?
 * How are the read counts distributed?  Are there lots of genes with an "average" number of reads, or are there lots of genes with high or low read counts but not many in the middle?
 
-Here is code for plotting a histogram of an htseq file.  Note that, in order to make the histogram, we have to tell R to take only the second column of data (the read counts).  If we try to plot a histogram of the whole dataframe, we will get an error.  Also notice that **we have excluded the last five rows**, since these are not genes
+Here is code for plotting a histogram of an htseq file.  Note that, in order to make the histogram, we have to tell R to take only the second column of data (the read counts).  If we try to plot a histogram of the whole dataframe, we will get an error.
 
 ```{r hist-htseq-exercise, exercise=TRUE, exercise.eval=TRUE}
-readCounts
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
-hist(genesOnly$V2, main="Read Counts for Drosophila RNAseq sample")
+hist(readCounts$V2, main="Read Counts for Drosophila RNA-seq sample")
 ```
 
-The graph above is not particularly informative, because there is such a wide range of values in our read count data.  The plot below contains the same data plotted on a log 10 scale.  This is a much more informative way to look at RNAseq data.
+The graph above is not particularly informative, because there is such a wide range of values in our read count data.  The plot below contains the same data plotted on a log 10 scale.  This is a much more informative way to look at RNA-seq data.
 
 ```{r histlog-htseq-exercise, exercise=TRUE, exercise.eval=TRUE}
-readCounts
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
-hist(log10(genesOnly$V2), main="Log10 Read Counts for Drosophila RNAseq sample")
+hist(log10(readCounts$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
 ```
 
-This pattern is fairly typical for RNAseq data.  There is a peak near zero, containing the genes that have low to no expression in this sample.  Then there is a dip in the middle, with relatively few genes being expressed at a mid-low level.  There is another peak containing the genes that have fairly high expression in this sample, towards the right side of the graph, and then there is a tail on the right containing fewer and fewer genes at higher levels of expression.
+This pattern is fairly typical for RNA-seq data.  There is a peak near zero, containing the genes that have low to no expression in this sample.  Then there is a dip in the middle, with relatively few genes being expressed at a mid-low level.  There is another peak containing the genes that have fairly high expression in this sample, towards the right side of the graph, and then there is a tail on the right containing fewer and fewer genes at higher levels of expression.
 
-### Interpreting a Histogram of RNAseq data
+### Interpreting a Histogram of RNA-seq data
 
-Here is a simpler histogram of some RNAseq data.  We have reduced the number of "bins" (bars), so that it will be easier to answer questions about the plot.  This plot is also *Drosophila* data, though it's from a different sample than the one we've been analyzing so far.  After getting some practice interpreting this graph, you'll take another look at the `readCounts` data you've been working with.
+Here is a simpler histogram of some RNA-seq data.  We have reduced the number of "bins" (bars), so that it will be easier to answer questions about the plot.  This plot is also *Drosophila* data, though it's from a different sample than the one we've been analyzing so far.  After getting some practice interpreting this graph, you'll take another look at the `readCounts` data you've been working with.
 
-![Log10 Read Counts for Drosophila RNAseq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
+![Log10 Read Counts for Drosophila RNA-seq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
 
 ### Answer the following questions about the above plot.
 ```{r, practice-hist-quiz, echo=FALSE}
@@ -619,7 +575,7 @@ quiz(caption="Histogram Practice",
   question("What is the read count of genes in the bar containing gene A?",
     answer("between 2 and 3"),
     answer("between 20 and 30"),
-    answer("between 200 and 300"),
+    answer("between 200 and 300", message="This is a good estimate for the read count for gene A.  But the question asks about the whole bar containing gene A."),
     answer("between 100 and 1000", correct=TRUE),
     allow_retry = TRUE,
     random_answer_order = TRUE
@@ -635,11 +591,13 @@ quiz(caption="Histogram Practice",
 )
 ```
 
+## Dealing with Genes with Zero Reads
+
 ### Be careful when plotting log-transformed data
 
 Take a look at this graph again.  
 
-![Log10 Read Counts for Drosophila RNAseq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
+![Log10 Read Counts for Drosophila RNA-seq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
 
 For this *Drosophila* sample, we expect there to be 17559 genes.
 
@@ -669,11 +627,10 @@ question("What is log10 of zero?",
 
 If you were to look at the read count data for this histogram, you would see that roughly 6000 genes have a read count of zero, and they have been excluded from the histogram.  When you ask R to do something impossible, sometimes it will give you an error, or sometimes it will do its best to guess how to handle it.  In this case, it excluded all the zeros.
 
-One solution to this problem is to add 0.1 to every read count before doing the log transformation, using `log10(v + 0.1)` if `v` is a vector containing your data.  Use the code block below to plot a histogram of log10(your data) and of log10(your data + 0.1).  Notice how this changes the shape of your data.
+One solution to this problem is to add 0.1 to every read count before doing the log transformation, using `log10(v + 0.1)` if `v` is a vector containing your data.  Use the code block below to plot a histogram of log10(your data) and of log10(your data + 0.1).  Notice how this changes the shape of your data  **If you need help, try clicking the "Hints" button at the top of the codeblock (below) or look at the R Cheat Sheet page**.
 
 ```{r histlog-fixzeros-htseq-exercise, exercise=TRUE, exercise.eval=TRUE}
 readCounts
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
 ```
 
 Use your plots to get a rough estimate of the expression level of genes in your data.  Note that these will be a rough estimate only (nearest 500), and bars that look like zero on the graph may actually be numbers that are too small to see (a bar with only 1 gene in it would not be visible on these plots).  You could use R code to get a precise value if you want, but the plots provides a quick and easy method to get a rough idea of what's in your data.
@@ -682,7 +639,7 @@ Use your plots to get a rough estimate of the expression level of genes in your 
 quiz(caption="Re-Examine Your Data",
   question("How many genes have a read count of zero (round to the nearest 500)?",
     answer("1500"),
-    answer("8000", message="This is the number of genes that have a readcount of less than 10^0.5 (3), so it includes genes with a read count of 1, 2, or 3.  We want only the genes with a read count of 0."),  
+    answer("2000"),  
     answer("0"),
     answer("7000", correct=TRUE),
     allow_retry = TRUE
@@ -708,42 +665,74 @@ quiz(caption="Re-Examine Your Data",
 
 ```{r histlog-fixzeros-htseq-exercise-hint-1}
 "
-How many genes have a read count of zero (round to the nearest 500)?
-Take the log of the read count data + 0.1.
+Plot a histogram of log10 of the data:
+Scroll up to the top of the page or look at the R Cheat Sheet if you need a reminder of what this code should look like.
 "
 ```
 
 ```{r histlog-fixzeros-htseq-exercise-hint-2}
 "
-How many genes have a read count of zero (round to the nearest 500)?
-Take the log of the read count data + 0.1, and see how many genes are in the bar at -1.
+Plot a histogram of log10 of the data:
+What dataframe and what column do you want to make a histogram of?
 "
 ```
 
 ```{r histlog-fixzeros-htseq-exercise-hint-3}
 "
-How many genes have a read count of zero (round to the nearest 500)?
-hist(log10(genesOnly$V2+0.1))
+Plot a histogram of log10 of the data:
+What dataframe and what column do you want to make a histogram of?
 "
+hist(log10(genesOnly$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
 ```
 
 ```{r histlog-fixzeros-htseq-exercise-hint-4}
+"
+Plot a histogram of log10 of the data + 0.1:
+How would you modify this code so that it plots genesOnly$V2 + 0.1?
+"
+hist(log10(genesOnly$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
+```
+
+```{r histlog-fixzeros-htseq-exercise-hint-5}
+"
+Plot a histogram of log10 of the data + 0.1:
+"
+hist(log10(genesOnly$V2 + 0.1), main="Log10 Read Counts for Drosophila RNA-seq sample")
+```
+
+```{r histlog-fixzeros-htseq-exercise-hint-6}
+"
+How many genes have a read count of zero (round to the nearest 500)?
+Make sure your graph includes these reads by plotting the log of the read count data + 0.1.
+"
+```
+
+```{r histlog-fixzeros-htseq-exercise-hint-7}
+"
+How many genes have a read count of zero (round to the nearest 500)?
+Plot the log of the read count data + 0.1, and see how many genes are in the bar at -1.
+"
+```
+
+
+```{r histlog-fixzeros-htseq-exercise-hint-8}
 "
 How many genes have a read count of greater than 1000 (rounded to the nearest 500)?
 What is log10(1000)?
 "
 ```
 
-```{r histlog-fixzeros-htseq-exercise-hint-5}
+
+```{r histlog-fixzeros-htseq-exercise-hint-9}
 "
 How many genes have a read count of greater than 1000 (rounded to the nearest 500)?
-How many genes are represented in the bars starting at 3 and continuing to the right edge of the graph?
+log10(1000) is 3.  How many genes are represented in the bars starting at 3 and continuing to the right edge of the graph?
 "
 ```
 
 ## Try it Out!
 
-Now that you know how to take a first look at RNASeq data, you can try it out on some real scientific data!
+Now that you know how to take a first look at RNA-seq data, you can try it out on some real scientific data!
 
 So far we've looked at a single sample of RNA-seq data from the Drosophila midgut.  But there are 30 different samples that make up our dataset.
 
@@ -778,7 +767,7 @@ read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/asset
 
 Use the table to figure out the file name (starting with "SRR") for the sample you want to examine.  Use the codeblocks below to explore the data, calculating summary statistics and plotting out histograms.  There are several blocks for your convenience, use as many as you like.
 
-The first two lines of each code block load the data into `readCounts` and create a new dataframe named `genesOnly` that excludes the last few (non-gene) rows.  Replace `FILENAMEHERE` in the first command with the filename for the sample you want to examine.  For example, for sample `am1` (which contains data from the anterior region `a1_3`), the filename is `SRR891601`, so the command should look like this: `readCounts <- read.table( "data/SRR891601.htseq" )`.  If you forget to change the filename, you will see an error message because R can't find a file named `FILENAMEHERE`.
+The first line of each code block load the data into `readCounts`.  Replace `FILENAMEHERE` in the first command with the filename for the sample you want to examine.  For example, for sample `am1` (which contains data from the anterior region `a1_3`), the filename is `SRR891601`, so the command should look like this: `readCounts <- read.table( "data/SRR891601.htseq" )`.  If you forget to change the filename, you will see an error message because R can't find a file named `FILENAMEHERE`.  If you need to reset this line, click the "Start Over" button at the top of the code block.  **You can always look back at other tabs and use the R cheat sheet to remind yourself how to set up a particular command.**
 
 There are instructions on Canvas about what to submit for this lab.
 
@@ -789,31 +778,25 @@ untar( "data.tgz" )
 ```
 
 ```{r freeplay-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
-readCounts <- read.table( "data/FILENAMEHERE.htseq" )
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
+readCounts <- read.table( "data/FILENAMEHERE.htseq" )[1:17559,]
 ```
 
 ```{r freeplay2-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
-readCounts <- read.table( "data/FILENAMEHERE.htseq" )
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
+readCounts <- read.table( "data/FILENAMEHERE.htseq" )[1:17559,]
 ```
 
 ```{r freeplay3-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
-readCounts <- read.table( "data/FILENAMEHERE.htseq" )
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
+readCounts <- read.table( "data/FILENAMEHERE.htseq" )[1:17559,]
 ```
 
 ```{r freeplay4-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
-readCounts <- read.table( "data/FILENAMEHERE.htseq" )
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
+readCounts <- read.table( "data/FILENAMEHERE.htseq" )[1:17559,]
 ```
 
 ```{r freeplay5-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
-readCounts <- read.table( "data/FILENAMEHERE.htseq" )
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
+readCounts <- read.table( "data/FILENAMEHERE.htseq" )[1:17559,]
 ```
 
 ```{r freeplay6-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
-readCounts <- read.table( "data/FILENAMEHERE.htseq" )
-genesOnly <- filter(readCounts, str_detect(V1, "FBgn"))
+readCounts <- read.table( "data/FILENAMEHERE.htseq" )[1:17559,]
 ```
