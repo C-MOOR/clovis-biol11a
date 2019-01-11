@@ -72,3 +72,4 @@ Some tutorials link to Youtube videos.
 ### Images
 * The elife images are from: Marianes and Spradling (2013) [Physiological and stem cell compartmentalization within the Drosophila midgut.](https://elifesciences.org/articles/00886) eLife 2013;2:e00886.  They are licensed under a Creative Commons Attribution license (CC-BY).
 * The histogram image was created by C-MOOR
+* The mRNA processing image is from: [OpenStax Biology 2nd Edition](http://cnx.org/contents/8d50a0af-948b-4204-a71d-4826cba765b8@15.1), Biology 2e. Chapter 15.4 "RNA Processing in Eukaryotes". OpenStax CNX. Nov 26, 2018.

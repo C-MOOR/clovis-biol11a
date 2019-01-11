@@ -5,7 +5,7 @@ output:
     progressive: true
     version: 1.1
 subtitle: |
-  | ![](https://raw.githubusercontent.com/C-MOOR/rnaseq/master/assets/styling/cmoor_logo_notext.png){width=50%}
+  | ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_notext.png){width=60%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo.jpg){width=38%}
 runtime: shiny_prerendered
 ---
 
@@ -33,7 +33,9 @@ income <- as.numeric(i$X8)
 
 ## Welcome {.splashpage}
 
-![](https://raw.githubusercontent.com/C-MOOR/rnaseq/master/assets/styling/cmoor_logo_text_horizontal.png){width=100%}
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png){width=100%}
+
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg){width=100%}
 
 ```{r}
 # Extract the tutorial version from the YAML data and store it so we can print it using inline r code below.  This can't be done directly inline because the code for extracting the YAML data uses backticks
@@ -81,7 +83,12 @@ question("How does a skin cell differ from a kidney cell?",
 
 ## *In vivo* – Eukaryotic Gene Expression
 
-To understand how scientists isolate and sequence mRNA, we must review how mRNA is made in a eukaryotic cell. In eukaryotes, transcription occurs in the nucleus, where the information in the DNA is transcribed into a pre-mRNA molecule containing both **exons** (protein-coding sequences) and **introns** (non-protein coding regions). The introns are ultimately spliced out, connecting the exons into one message that can be used to build a protein. On the 3' end of the mRNA, about 200 extra adenines are added, creating the Poly-A tail. This Poly-A tail is important for distinguishing mRNA from other types of RNA in the cell. Additionally, a cap is added to the 5' end of the mRNA.
+To understand how scientists isolate and sequence mRNA, we must review how mRNA is made in a eukaryotic cell.
+
+This image is from [OpenStax Biology 2nd Edition](http://cnx.org/contents/8d50a0af-948b-4204-a71d-4826cba765b8@15.1) and is shared using the [Creative Commons Attribution License 4.0](https://creativecommons.org/licenses/by/4.0/).
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/OpenStax_Biology_2ndEd_mRNA_processing.png){width=100%}
+
+In eukaryotes, transcription occurs in the nucleus, where the information in the DNA is transcribed into a pre-mRNA molecule containing both **exons** (protein-coding sequences) and **introns** (non-protein coding regions). The introns are ultimately spliced out, connecting the exons into one message that can be used to build a protein. On the 3' end of the mRNA, about 200 extra adenines are added, creating the Poly-A tail. This Poly-A tail is important for distinguishing mRNA from other types of RNA in the cell. Additionally, a cap is added to the 5' end of the mRNA.
 
 ```{r question-in-vivo-RNA}
 question("Which of the following are features of a mature (complete) mRNA molecule?  HINT: Choose more than one answer.",
@@ -109,6 +116,7 @@ At the sequencing facility, the sample is loaded into a lane on a special glass 
 The process of Illumina Sequencing can be difficult to conceptualize. Watch the video below to view an animation of the process:
 
 ![](https://www.youtube.com/watch?v=fCd6B5HRaZ8)
+
 
 
 ```{r sequencing-questions, echo=FALSE}
