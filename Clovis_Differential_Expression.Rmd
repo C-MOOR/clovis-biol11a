@@ -3,6 +3,9 @@ title: "Differential Expression with DESeq2"
 output:
   learnr::tutorial:
     progressive: true
+    version: 1.1
+subtitle: |
+  | ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_notext.png){width=60%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo.jpg){width=38%}
 runtime: shiny_prerendered
 ---
 
@@ -46,6 +49,38 @@ midgut_tsv <- read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11
 midgut <- DESeqDataSetFromHTSeqCount(midgut_tsv, "data/", design = ~condition)
 midgut <- DESeq(midgut)
 ```
+
+## Welcome {.splashpage}
+
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png){width=100%}
+
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg){width=100%}
+
+```{r}
+# Extract the tutorial version from the YAML data and store it so we can print it using inline r code below.  This can't be done directly inline because the code for extracting the YAML data uses backticks
+tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
+```
+
+#### Introduction: Comparing Data from Muliple RNA-seq Samples
+
+In the previous lab, we looked at a single HTSeq file, which provides gene expression data for one sample.  In today's lab we will learn a hand-full of methods for looking at gene expression across the multiple samples from the *Drosophila* midgut.
+
+#### Learning Goals
+
+1. Calculate differential expression statistics using DESeq2
+2. Understand the columns and rows of DESeq2 results
+3. Use R to extract results for a single gene of interest
+4. Use R to create a list of significantly different genes for different significance cutoffs.
+5. Use clusterProfiler to carry out Gene Set Analysis and identify categories of genes that are significantly different between samples.
+6. Use R to plot expression of a single gene across all regions.
+
+
+#### Authors:
+* [Dr. Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)
+* [Dr. Stephanie Coffman](https://c-moor.github.io/portfolio/coffmanstephanie/)
+
+
+#### Version: `r tv`
 
 ## Introduction
 
