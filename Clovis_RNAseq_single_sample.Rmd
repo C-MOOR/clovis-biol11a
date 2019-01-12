@@ -69,7 +69,8 @@ All of your somatic cells contain the same complete set of genetic information (
 
 Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome**, the specific collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on an approach called **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample. We will cover this process in three steps: *in vivo*, *in vitro* and *in silico* (Figure 1).
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Summary_of_RNA-Seq.svg/1000px-Summary_of_RNA-Seq.svg.png){width=100%}
+This image is from [Summary of RNA-seq](https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg) by Thomas Shafee,  5 October 2016. License: [Creative Commons Attribution 4.0 International (CC BY 4.0) License](https://creativecommons.org/licenses/by/4.0/deed.en)
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Summary_of_RNA-Seq.png){width=100%}
 
 ```{r question-1}
 question("How does a skin cell differ from a kidney cell?",
@@ -106,8 +107,13 @@ Before transcriptome samples can be sequenced, scientists must (1) change the mR
 We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
 
  It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing. There are a few methods for next-gen sequencing, but we will focus on Illumina sequencing.
+ 
+ The following images are from:
+ 
+* [Illumina HiSeq 2500](https://commons.wikimedia.org/wiki/File:Illumina_HiSeq_2500.jpg) by Konrad Förstner, 3 December 2013. License: [Creative Commons CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
+* [Next generation sequencing slide](https://commons.wikimedia.org/wiki/File:Next_generation_sequencing_slide.jpg) by Bainscou, 7 April 2015. License: [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/deed.en)
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Illumina_HiSeq_2500.jpg/440px-Illumina_HiSeq_2500.jpg){width=47.5%} ![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Next_generation_sequencing_slide.jpg/1600px-Next_generation_sequencing_slide.jpg){width=51.1%}
+![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Illumina_HiSeq_2500.jpg){width=47.5%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Next_generation_sequencing_slide.jpg){width=51.1%}
 
 Illumina Sequencing uses a method called sequencing by synthesis. To prepare a RNA-seq sample, the cDNA is first fragmented into 100-200bp pieces and special adapters are attached to the ends of the fragmented cDNA. These adapters will be important for sequencing the cDNA. At this point, the samples are usually sent off to a facility that has an Illumina Sequencer machine (Figure 2a).
 
