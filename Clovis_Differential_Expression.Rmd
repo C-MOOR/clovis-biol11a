@@ -84,12 +84,12 @@ In the previous lab, we looked at a single HTSeq file, which provides gene expre
 
 ## Introduction
 
-In the previous lab, we looked at a single HT-seq file, which provides gene expression data for one sample. Let's consider an example from Marianes and Spalding et al. Recall that they compared many RNA-seq samples from different regions of the midgut in *Drosophilia melanogaster* (Figure 2A, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/))
+In the previous lab, we looked at a single HTSeq file, which provides gene expression data for one sample. Let's consider an example from Marianes and Spradling et al. Recall that they compared many RNA-seq samples from different regions of the midgut in *Drosophilia melanogaster* (Figure 2A, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/))
 
 ![Figure 2A](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2A.jpg){ width=100% }
-**Figure 2A** Diagram illustrating the different RNA-seq libraries constructed by Marianes and Spalding 2013 from the Drosophila midgut.
+**Figure 2A** Diagram illustrating the different RNA-seq libraries constructed by Marianes and Spradling 2013 from the Drosophila midgut.
 
-From an HT seq file, we can learn that the *lab* gene is highly expressed in the Cu region of the *Drosophlia* midgut. But, does that mean the *lab* gene is important for cells of the Cu region? Maybe, maybe not. It could be that *lab* is expressed at that level across the whole midgut or possible even the whole fly. To really answer questions about gene expression, we need to compare more than one sample with each other. Which samples are compared depends on the scientific question being asked. In terms of the *lab* gene, Marianes and Spalding analyzed its expression in each region of the gut and determined that it is localized to the Cu region (Figure 2D, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/)). This is a clue that *lab* is important in the Cu region.
+From an HTSeq file, we can learn that the *lab* gene is highly expressed in the Cu region of the *Drosophlia* midgut. But, does that mean the *lab* gene is important for cells of the Cu region? Maybe, maybe not. It could be that *lab* is expressed at that level across the whole midgut or possible even the whole fly. To really answer questions about gene expression, we need to compare more than one sample with each other. Which samples are compared depends on the scientific question being asked. In terms of the *lab* gene, Marianes and Spradling analyzed its expression in each region of the gut and determined that it is localized to the Cu region (Figure 2D, from [Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/)). This is a clue that *lab* is important in the Cu region.
 
 ![Figure 2D](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2D.jpg){ width=100% }
 **Figure 2D** Analysis of seven genes and their gene expression across each region of the gut.
@@ -243,7 +243,7 @@ You can usually combine commands any way you like, using parentheses.  As long a
 
 ### Introduction
 
-Usually when you do an RNA-seq experiment, you want to find out what genes behave differently in different samples.  This is called “differential expression”, because you're looking for *differences* in gene *expression*.
+Usually when you do an RNA-seq experiment, you want to find out what genes behave differently in different samples.  This is called "differential expression", because you're looking for *differences* in gene *expression*.
 
 `DESeq2` is a program for calculating differential expression (the DE in DESeq2 stands for differential expression).  It starts with the read count data (for example, HTSeq files) for *all* the samples, then does a bunch of math to figure out which genes are the most different between samples.
 
@@ -268,7 +268,7 @@ We have stored the results from DESeq2 in an object named `midgut`.  This is a s
 2. Reformat the results to make them more useful.  We've made a special command that takes care of reformatting DESeq2 results, named `formatDESeq2Results()`.  Run this command on your temporary variable to convert in into a nicely formatted dataframe.  Store the dataframe in a new variable, and give it a descriptive name so you can remember what it is.
   + In the example below, we have named our dataframe `a1_vs_p1`, since it contains the data comparing region a1 to region p1.
 
-Here's an example of this two step process for getting the data comparing samples from region “a1” to region “p1”.  As the last command, we type out the name of our new dataframe so that it will print to the screen and we can see what it looks like.
+Here's an example of this two step process for getting the data comparing samples from region "a1" to region "p1".  As the last command, we type out the name of our new dataframe so that it will print to the screen and we can see what it looks like.
 
 ```{r, echo=TRUE}
 temp <- results(midgut, contrast = c("condition", "a1", "p1") )
@@ -279,8 +279,8 @@ a1_vs_p1
 Each row in this dataframe is a gene, and the columns contain a bunch of information about the statistics that DESeq2 calculated.  This data frame has a lot of numbers in it, but there are three columns that we're interested in:
 
 - **baseMean**:  The mean expression level for this gene across all samples
-- **log2FoldChange**:  How much higher this gene is expressed in the first region (“a1”) than in the second region (“p1”).  A positive number means the gene is higher in a1 than in p1, and a negative number means the gene is lower in a1 than in p1
-- **padj**: (If this variable doesn't show up on your screen, click the little arrow at the top right of the table, next to the column names.  This will let you scroll through all the columns if they don't fit on your screen).  This is the “adjusted p-value” for the gene - basically, a score that helps you decide whether or not this gene is actually different between the regions.  A **high score** means the gene is probably **not different** between the samples.  A **low score** means that it probably is a **real difference**, and not a fluke in the data.  Scientists often use a score of 0.05 as a cutoff, so genes with a `padj` score of less than 0.05 would be considered “significantly different” between these samples.  This is important because measurements are never perfect, and we have to decide whether the differences we see are because the samples are actually different, or are just errors in measurement.
+- **log2FoldChange**:  How much higher this gene is expressed in the first region ("a1") than in the second region ("p1").  A positive number means the gene is higher in a1 than in p1, and a negative number means the gene is lower in a1 than in p1
+- **padj**: (If this variable doesn't show up on your screen, click the little arrow at the top right of the table, next to the column names.  This will let you scroll through all the columns if they don't fit on your screen).  This is the "adjusted p-value" for the gene - basically, a score that helps you decide whether or not this gene is actually different between the regions.  A **high score** means the gene is probably **not different** between the samples.  A **low score** means that it probably is a **real difference**, and not a fluke in the data.  Scientists often use a score of 0.05 as a cutoff, so genes with a `padj` score of less than 0.05 would be considered "significantly different" between these samples.  This is important because measurements are never perfect, and we have to decide whether the differences we see are because the samples are actually different, or are just errors in measurement.
 
 ```{r intro-deseq-results}
 quiz(caption = "What's in this dataframe?",
@@ -399,7 +399,7 @@ quiz(caption = "Examine another comparison between regions",
 
 The results command gives information about *all* genes.  That's a lot of data!  We can use some R commands to focus on smaller sets of those genes that we think are interesting.
 
-To look up a particular gene that you're interested in, you can select it by name using the `filter()` command.  It's important that the name you use *exactly matches* the name of the gene in the results dataframe.  R isn't like Google, it can't guess what you meant if you spell it wrong or even capitalize it differently.  The following code finds the gene "FBgn0000251"" in the results for a1 vs. p1.  The first two commands are just getting the results, like we practiced earlier.  The filter command is looking through the column GeneID for any thing that exactly matches "FBgn0000251".  Note that we stored the result in a new variable, named `gene251`, so we can easily get this gene back whenever we want it.
+To look up a particular gene that you're interested in, you can select it by name using the `filter()` command.  It's important that the name you use *exactly matches* the name of the gene in the results dataframe.  R isn't like Google, it can't guess what you meant if you spell it wrong or even capitalize it differently.  The following code finds the gene "FBgn0000251" in the results for a1 vs. p1.  The first two commands are just getting the results, like we practiced earlier.  The filter command is looking through the column GeneID for any thing that exactly matches "FBgn0000251".  Note that we stored the result in a new variable, named `gene251`, so we can easily get this gene back whenever we want it.
 
 ```{r filter-by-name-example, echo=TRUE}
 temp <- results(midgut, contrast = c("condition", "a1", "p1") )
@@ -416,7 +416,7 @@ quiz(caption = "Looking at a specific gene",
    answer("higher in p1", correct=TRUE),
    allow_retry=TRUE
    ),
-  question("Is this difference significant at a padj value of 0.05?  In other words, is this difference “real” or is it probably a fluke?",
+  question("Is this difference significant at a padj value of 0.05?  In other words, is this difference 'real' or is it probably a fluke?",
    answer("real", correct=TRUE),
    answer("probably a fluke"),
    allow_retry=TRUE
@@ -436,7 +436,7 @@ quiz(caption = "Looking at a specific gene",
    answer("higher in Cu"),
    allow_retry=TRUE
    ),
-  question("Is this difference significant at a padj value of 0.05?  In other words, is this difference “real” or is it probably a fluke?",
+  question("Is this difference significant at a padj value of 0.05?  In other words, is this difference 'real' or is it probably a fluke?",
    answer("real"),
    answer("probably a fluke", correct=TRUE),
    allow_retry=TRUE
@@ -444,15 +444,15 @@ quiz(caption = "Looking at a specific gene",
 )
 ```
 
-## Lists of interesting Genes
+## Lists of Interesting Genes
 
 While it's useful to be able to look up particular genes we're interested in, it's also valuable to get a list of all the genes that are different between two samples.  This lets us discover genes that we never would have thought to check by name.
 
 ### Get a list of genes that have good padj scores
 
-The first thing we need to do is to pick out all the genes that the computer thinks are “really” different between the two samples - those with a padj score smaller than our cutoff.  Remember, a good padj score is a small number.  This means that there is a very small chance that the differences we see between samples are just an accident.
+The first thing we need to do is to pick out all the genes that the computer thinks are "really" different between the two samples - those with a padj score smaller than our cutoff.  Remember, a good padj score is a small number.  This means that there is a very small chance that the differences we see between samples are just an accident.
 
-A cutoff of 0.05 or 0.10 is often a good place to start.  We can get a list of these genes using the `filter()` command, similar to the way we pulled out single genes by name.  The following code finds only the genes that have a padj score of less than or equal to 0.05, stores the results in a new dataframe named sig_genes.  (This is an abbreviation for “significantly different genes”, you could name it whatever you like).  
+A cutoff of 0.05 or 0.10 is often a good place to start.  We can get a list of these genes using the `filter()` command, similar to the way we pulled out single genes by name.  The following code finds only the genes that have a padj score of less than or equal to 0.05, stores the results in a new dataframe named sig_genes.  (This is an abbreviation for "significantly different genes", you could name it whatever you like).  
 
 ```{r filter-by-padj-example, echo=TRUE}
 temp <- results(midgut, contrast = c("condition", "a1", "p1") )
@@ -484,9 +484,9 @@ quiz(caption = "Looking at a significantly different genes",
 
 Often, a couple hundred to a couple thousand genes is a pretty comfortable number of genes to work with, it will let us look for patterns without overwhelming us.  If instead we got a very small number, we might want to loosen our cutoff (raise our minimum padj value).  Or, if we got thousands of genes, we might want to make our cutoff more strict (lower our padj value).  It depends on what we want to do with our list of genes.  If we're examining them by hand we might want a smaller, more certain list.  If we're looking for broad patterns, we might want a bigger list with more errors.
 
-When you pick a padj cutoff, it's important to think about what it means.  In DESeq2, the padj value is the fraction of genes on the list that are probably not “really” different.  If we pick a padj value of 0.05, and we get a list of 100 genes, we expect 95 of those genes to be “real” and (0.05 X 100 = 5) 5 of those genes to be accidents.  If we instead pick a higher padj value of 0.10, then we expect 90 genes to be “real” and (0.10 X 100 = 10) 10 to be accidents.  Likewise, if we picked a very low padj cutoff of 0.001 then we would expect all 100 of the genes to be real (0.001 X 100 = 0.1, so less that 1 gene is expected to be an accident).
+When you pick a padj cutoff, it's important to think about what it means.  In DESeq2, the padj value is the fraction of genes on the list that are probably not "really" different ("False Positives").  If we pick a padj value of 0.05, and we get a list of 100 genes, we expect 95 of those genes to be "real" and (0.05 X 100 = 5) 5 of those genes to be accidents.  If we instead pick a higher padj value of 0.10, then we expect 90 genes to be "real" and (0.10 X 100 = 10) 10 to be accidents.  Likewise, if we picked a very low padj cutoff of 0.001 then we would expect all 100 of the genes to be real (0.001 X 100 = 0.1, so less that 1 gene is expected to be an accident).
 
-We would love to be able to have only “real” genes on the list (by picking a very low padj cutoff), but often we don't have good enough data to be able to do this (if we pick a low enough number that we expect all genes to be real, then very few genes (or maybe no genes) pass the cutoff).  And as we make the cutoff stricter, we end up throwing out a lot of real genes along with the false ones.  As data analysts, we have to decide when it's better to have a smaller list of differentially expressed genes that are more likely to be real, and when it's better to have a bigger list of genes but know that several of them aren't “really” different.
+We would love to be able to have only "real" genes on the list (by picking a very low padj cutoff), but often we don't have good enough data to be able to do this (if we pick a low enough number that we expect all genes to be real, then very few genes (or maybe no genes) pass the cutoff).  And as we make the cutoff stricter, we end up throwing out a lot of real genes along with the false ones.  As data analysts, we have to decide when it's better to have a smaller list of differentially expressed genes that are more likely to be real, and when it's better to have a bigger list of genes but know that several of them aren't "really" different.
 
 In this case, for a1 vs p1 we actually have quite good data with many significantly different genes.  From our 2492 genes, we expect 0.05 X 2492 ~ 125 of them to be false positives.  Since we have so many genes, it might be a good idea to pick a lower p-value and see how many genes we're left with.
 
