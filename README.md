@@ -53,7 +53,7 @@ Bioconductor packages:
 ## Assets
 
 ### Images
-All the images necessary for these tutorials are included in this repository.
+All the images necessary for these tutorials are included in this repository.  Images were created by C-MOOR or are licensed under a Creative Commons license.  Details about image credits can be found in the "Credits" section below.
 
 ### Videos
 Some tutorials link to Youtube videos.
@@ -70,6 +70,10 @@ Some tutorials link to Youtube videos.
 * Stephanie Coffman (Clovis Community College, Fresno, CA)
 
 ### Images
-* The elife images are from: Marianes and Spradling (2013) [Physiological and stem cell compartmentalization within the Drosophila midgut.](https://elifesciences.org/articles/00886) eLife 2013;2:e00886.  They are licensed under a Creative Commons Attribution license (CC-BY).
+* The elife images are from: Marianes and Spradling (2013) [Physiological and stem cell compartmentalization within the Drosophila midgut.](https://elifesciences.org/articles/00886) eLife 2013;2:e00886.  They are licensed under a Creative Commons Attribution license (CC-BY)
 * The histogram image was created by C-MOOR
-* The mRNA processing image is from: [OpenStax Biology 2nd Edition](http://cnx.org/contents/8d50a0af-948b-4204-a71d-4826cba765b8@15.1), Biology 2e. Chapter 15.4 "RNA Processing in Eukaryotes". OpenStax CNX. Nov 26, 2018.
+* The mRNA processing image is from: [OpenStax Biology 2nd Edition](http://cnx.org/contents/8d50a0af-948b-4204-a71d-4826cba765b8@15.1), Biology 2e. Chapter 15.4 "RNA Processing in Eukaryotes". OpenStax CNX. Nov 26, 2018, and is licensed under a Creative Commons Attribution License
+* The following images are from Wikimedia
+  * [Summary of RNA-seq](https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg) by Thomas Shafee,  5 October 2016. License: [Creative Commons Attribution 4.0 International (CC BY 4.0) License](https://creativecommons.org/licenses/by/4.0/deed.en)
+  * [Illumina HiSeq 2500](https://commons.wikimedia.org/wiki/File:Illumina_HiSeq_2500.jpg) by Konrad Förstner, 3 December 2013. License: [Creative Commons CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
+  * [Next generation sequencing slide](https://commons.wikimedia.org/wiki/File:Next_generation_sequencing_slide.jpg) by Bainscou, 7 April 2015. License: [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/deed.en)
