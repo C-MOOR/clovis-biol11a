@@ -395,7 +395,7 @@ quiz(caption = "Examine another comparison between regions",
 )
 ```
 
-### Getting results for a single gene
+## Get results for a single gene
 
 The results command gives information about *all* genes.  That's a lot of data!  We can use some R commands to focus on smaller sets of those genes that we think are interesting.
 
@@ -448,7 +448,7 @@ quiz(caption = "Looking at a specific gene",
 
 While it's useful to be able to look up particular genes we're interested in, it's also valuable to get a list of all the genes that are different between two samples.  This lets us discover genes that we never would have thought to check by name.
 
-### Get a list of genes that have good padj scores
+### Get a list of genes with good padj scores
 
 The first thing we need to do is to pick out all the genes that the computer thinks are "really" different between the two samples - those with a padj score smaller than our cutoff.  Remember, a good padj score is a small number.  This means that there is a very small chance that the differences we see between samples are just an accident.
 
@@ -480,7 +480,7 @@ quiz(caption = "Looking at a significantly different genes",
 )
 ```
 
-###  Choosing a padj cutoff
+##  Choosing a padj cutoff
 
 Often, a couple hundred to a couple thousand genes is a pretty comfortable number of genes to work with, it will let us look for patterns without overwhelming us.  If instead we got a very small number, we might want to loosen our cutoff (raise our minimum padj value).  Or, if we got thousands of genes, we might want to make our cutoff more strict (lower our padj value).  It depends on what we want to do with our list of genes.  If we're examining them by hand we might want a smaller, more certain list.  If we're looking for broad patterns, we might want a bigger list with more errors.
 
@@ -532,7 +532,7 @@ quiz(caption = "Looking at a significantly different genes",
 )
 ```
 
-### What are these genes?
+## Gene Set Analysis with clusterProfiler
 
 Now that we have a list of interesting genes, we can use `clusterProfiler` program to figure out what these genes do.  Like `DESeq2`, we have to do a bit of reformating to organize our data for `clusterProfiler`, and we've made a command to make that easy: `runClusterProfiler`:
 
