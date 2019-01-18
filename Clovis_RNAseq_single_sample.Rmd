@@ -82,7 +82,7 @@ question("How does a skin cell differ from a kidney cell?",
 ```
 
 
-## *In vivo* – Eukaryotic Gene Expression
+## *In vivo* - Eukaryotic Gene Expression
 
 To understand how scientists isolate and sequence mRNA, we must review how mRNA is made in a eukaryotic cell.
 
@@ -101,7 +101,7 @@ question("Which of the following are features of a mature (complete) mRNA molecu
 )
 ```
 
-## *In vitro* – RNA sequencing
+## *In vitro* - RNA sequencing
 Before transcriptome samples can be sequenced, scientists must (1) change the mRNA into DNA, and (2) purify the mRNA (i.e. remove other cellular RNAs).
 
 We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
@@ -163,11 +163,11 @@ quiz(caption="RNA sequencing",
 ```
 
 
-## In silico – Computational Analysis
+## In silico - Computational Analysis
 
 Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**. When biologists use computer science to answer questions about biology, usually related to macromolecules (e.g. RNA and DNA), it is called **bioinformatics**. As scientists continue to collect more and more data, the field of bioinformatics continues to grow.
 
-Today's lab will investigate how scientists use computer science to analyze RNA-seq data. In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. The data you will look at today has already been processed using a program called HTseq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTseq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTseq file using the programming language R.
+Today's lab will investigate how scientists use computer science to analyze RNA-seq data. In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
 
 
 
@@ -450,7 +450,7 @@ Use the sum command.
 ```{r summarize-htseq-exercise-hint-2}
 "
 Hint: How many total reads are in this dataset?
-HTseq files don't have column names, so R gives default column names of V1 and V2
+HTSeq files don't have column names, so R gives default column names of V1 and V2
 You can select a column using these names.
 df$V1 would select the first column of a dataframe named df.
 "
@@ -688,22 +688,22 @@ What dataframe and what column do you want to make a histogram of?
 Plot a histogram of log10 of the data:
 What dataframe and what column do you want to make a histogram of?
 "
-hist(log10(genesOnly$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
+hist(log10(readCounts$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
 ```
 
 ```{r histlog-fixzeros-htseq-exercise-hint-4}
 "
 Plot a histogram of log10 of the data + 0.1:
-How would you modify this code so that it plots genesOnly$V2 + 0.1?
+How would you modify this code so that it plots readCounts$V2 + 0.1?
 "
-hist(log10(genesOnly$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
+hist(log10(readCounts$V2), main="Log10 Read Counts for Drosophila RNA-seq sample")
 ```
 
 ```{r histlog-fixzeros-htseq-exercise-hint-5}
 "
 Plot a histogram of log10 of the data + 0.1:
 "
-hist(log10(genesOnly$V2 + 0.1), main="Log10 Read Counts for Drosophila RNA-seq sample")
+hist(log10(readCounts$V2 + 0.1), main="Log10 Read Counts for Drosophila RNA-seq sample")
 ```
 
 ```{r histlog-fixzeros-htseq-exercise-hint-6}

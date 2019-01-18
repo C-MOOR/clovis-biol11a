@@ -298,7 +298,7 @@ quiz(caption = "What's in this dataframe?",
     allow_retry=TRUE
     ),
   question("Out of the first 10 genes shown above, which gene(s) are more highly expressed in a1 than p1?  HINT: There are four - you must select all four to get the correct answer.",
-    answer("FBgn0000003", correct=TRUE, message="Correct, but this is not the only gene expressed more highly in a1"),
+    answer("FBgn0000003", correct=TRUE),
     answer("FBgn0000008"),
     answer("FBgn0000014"),
     answer("FBgn0000015"),
