@@ -736,6 +736,29 @@ log10(1000) is 3.  How many genes are represented in the bars starting at 3 and 
 "
 ```
 
+## Investigating Genes on FlyBase
+
+So far we've gotten a big-picture idea of gene expression levels as a whole.  Now let's take a look at some individual genes and find out more about what they do.
+
+### What genes should we look at?
+
+With over 17,000 genes, it can be hard to know where to start! Next lab we'll learn more about how to sort through this big list of genes and find ones that are interesting for further investigation.  For now, we'll take a look at the first 10 genes in our dataset:
+
+```{r}
+head(readCounts, 10)
+```
+
+Out of these 10 genes, `FBgn0000024` has the highest expression in this sample.  Let's use FlyBase to find out more about this gene
+
+### Look up a gene on Flybase
+
+FlyBase ([flybase.org](http://flybase.org)) is a website for the Drosophila scientific community that organizes research results about Drosophila.  We can use it to find out what has been discovered about genes we're interested it.
+
+Go to [FlyBase](http://flybase.org), and enter `FBgn0000024` in the search bar ("Jump to Gene").
+
+![](assets/images/FlyBase_home.png){width=100%}
+
+
 ## Try it Out!
 
 Now that you know how to take a first look at RNA-seq data, you can try it out on some real scientific data!
