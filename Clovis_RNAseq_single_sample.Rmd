@@ -3,7 +3,7 @@ title: "Introduction to RNA-seq data"
 output:
   learnr::tutorial:
     progressive: true
-    version: 1.1
+    version: 1.2
 subtitle: |
   | ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_notext.png){width=60%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo.jpg){width=38%}
 runtime: shiny_prerendered
@@ -20,13 +20,22 @@ options(scipen=5)
 download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
 untar( "data.tgz" )
 
-# Get an single file as a data.frame (readcounts) for use in student coding blocks.
+# Get a single file as a data.frame (readcounts) for use in student coding blocks.
 # Also make a labeled version (a).
 readCounts <- read.table( "data/SRR891601.htseq" )
 readCounts <- filter(readCounts, str_detect(V1, "FBgn"))
 a <- readCounts
 colnames(a) <- c("GeneID", "readCount")
 
+# Make a data.frame with reads from a copper (Cu) sample for looking at the "lab" gene
+readCounts_Cu <- read.table( "data/SRR891616.htseq" )
+readCounts_Cu <- filter(readCounts_Cu, str_detect(V1, "FBgn"))
+
+# Make a data.frame with reads from an anterior (a1) sample for looking at the "lab" gene
+readCounts_a1 <- read.table( "data/SRR891610.htseq" )
+readCounts_a1 <- filter(readCounts_a1, str_detect(V1, "FBgn"))
+
+# Get income data for the log-scaling practice section
 i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
 income <- as.numeric(i$X8)
 ```
@@ -752,7 +761,7 @@ Out of these 10 genes, `FBgn0000024` has the highest expression in this sample. 
 
 ### Look up a gene on Flybase
 
-FlyBase ([flybase.org](http://flybase.org)) is a website for the Drosophila scientific community that organizes research results about Drosophila.  We can use it to find out what has been discovered about genes we're interested it.
+FlyBase ([flybase.org](http://flybase.org)) is a website for the *Drosophila* scientific community that organizes research results about *Drosophila*.  We can use it to find out what has been discovered about genes we're interested it.
 
 Go to FlyBase, and enter `FBgn0000024` in the search bar ("Jump to Gene").
 
@@ -795,7 +804,18 @@ As you can see, it doesn't have a name - we don't know what to name it since we 
 
 Unknown genes can be frustrating or disappointing, since they don't provide us with any information.  But they can also be exciting - maybe this data is a step towards finding out what they do!
 
-## Investigate a Single Gene
+## Reproduce Results for a Single Gene
+
+When you first start analyzing a new dataset, it's often a good idea to see if you can reproduce some previous results.  This gives you confidence in your data and in your analysis tools.
+
+In the [Marianes and Spradling](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/) paper, they look at the expression data for the *lab* gene.
+
+![Figure 2D](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2D.jpg){ width=100% }
+**Figure 2D** Analysis of seven genes and their gene expression across each region of the gut.
+
+They highlight this gene because previous research had discovered that it's involved in the copper region of the midgut.  They found that it was highly expressed in the copper (Cu) region, and not in other regions.  This was encouraging, because it showed that their data agreed with results from other experiments.
+
+Let's see if we see the same results when we look at the data for the *lab* gene.
 
 ### Use FlyBase to find the FlyBase ID number
 
@@ -822,11 +842,71 @@ quiz(caption = "Look up the *lab* gene on FlyBase",
 )
 ```
 
+### Find the expression data for *lab* in the Copper region
+
+So far we've only looked at data from one region of the midgut (the anterior region).  Now we'd like to look at data from the copper region.  For the code below, an htseq file containing data from the Copper region has been stored as a data.frame named `readCounts_Cu`.
+
+Use the codeblock below to run R commands and answer the following questions about the *lab* gene and the Copper region.  The code for loading data from the Copper region into a dataframe named `readCounts_Cu` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
+
+```{r, lab-Cu, echo=FALSE}
+quiz(caption = "Examine expression of *lab* in the Copper region",
+  question("What is the read count for *lab* in this sample from the Copper region?",
+    answer("0"),
+    answer("2522"),  
+    answer("2618"),
+    answer("11208", correct=TRUE),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How does expression of *lab* compare to expression of other genes in this sample from the Copper region?",
+    answer("Higher than most genes (in the top 25%)", correct=TRUE),
+    answer("Somewhere in the middle (in the middle 50%"),
+    answer("Lower than most genes (in the bottom 25%)"),
+    answer("No *lab* expression is detected"),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Compare expression data for *lab* in the Copper and anterior (a1) regions
+
+Now we've seen that the *lab* gene is highly expressed in the Copper region.  But what if it's just highly expressed in all regions?  Marianes and Spradling reported that it was high in the Copper region **and** low in other regions.  Let's take a look at *lab* expression in the anterior (a1) region.
+
+So far we've only looked at data from one region of the midgut (the anterior region).  Now we'd like to look at data from the copper region.  For the code below, an htseq file containing data from the Copper region has been stored as a data.frame named `readCounts_Cu`.  An htseq file from the anterior region (a1) has been stored as a data.frame named `readCounts_a1`.
+
+Use the codeblock below to run R commands and answer the following questions about the *lab* gene and the Copper region.  The code for loading data from the Copper region into a dataframe named `readCounts_Cu` and the data from the anterior region into a dataframe named `readCounts_a1` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
+
+```{r, lab-Cu, echo=FALSE}
+quiz(caption = "Examine expression of *lab* in the anterior (a1) region",
+  question("What is the read count for *lab* in this sample from the anterior (a1) region?",
+    answer("0", correct=TRUE),
+    answer("2522"),  
+    answer("2618"),
+    answer("11208"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("How does expression of *lab* compare to expression of other genes in this sample from the anterior (a1) region?",
+    answer("Higher than most genes (in the top 25%)"),
+    answer("Somewhere in the middle (in the middle 50%"),
+    answer("Lower than most genes (in the bottom 25%)"),
+    answer("No *lab* expression is detected", correct=TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Conclusions
+
+Looking good so far!  We were able to see high expression of the *lab* gene in the Copper region, and low (or no) expression in the anterior (a1) region.  This matches with what Marianes and Spradling found, and with what other researchers had found (that *lab* is important for the Copper region of the midgut).
+
+However, this is just a start.  We only looked at one of the Copper region samples and one of the anterior (a1) region samples, even though we have three samples from each region.  We haven't looked at the other five gut sections that we have data for.  And in our comparison, we didn't do any "normalization" - adjusting the raw read counts to make up for experimental differences between samples (like getting more cells from some samples than others).  In the next lab we will learn easier and more accurate ways to compare gene expression across many different samples.
+
 ## Try it Out!
 
 Now that you know how to take a first look at RNA-seq data, you can try it out on some real scientific data!
 
-So far we've looked at a single sample of RNA-seq data from the Drosophila midgut.  But there are 30 different samples that make up our dataset.
+So far we've mostly looked at a single sample of RNA-seq data from the Drosophila midgut.  But there are 30 different samples that make up our dataset.
 
 Here is an image from the Marianes and Spradling (2013) paper showing 3 large regions (top) and 7 smaller subregions (bottom) of the *Drosophila* midgut.
 
