@@ -1,7 +1,6 @@
 install.packages("learnr")
 install.packages("tidyverse")
 install.packages("caTools")
-install.packages("bitops")
 
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
