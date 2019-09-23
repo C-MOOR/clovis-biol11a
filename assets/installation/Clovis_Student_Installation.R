@@ -6,5 +6,5 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install()
 
-BiocManager::install(c("DESeq2", "clusterProfiler", "org.Dm.eg.db"))
+BiocManager::install(c("DESeq2", "clusterProfiler", "org.Dm.eg.db"), update=FALSE)
 print("All done!")
