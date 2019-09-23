@@ -1,10 +1,10 @@
 install.packages("learnr")
 install.packages("tidyverse")
 install.packages("caTools")
-install.packages("bitops")
 
-source("https://bioconductor.org/biocLite.R")
-biocLite("DESeq2", suppressUpdates=TRUE)
-biocLite("clusterProfiler", suppressUpdates=TRUE)
-biocLite("org.Dm.eg.db", suppressUpdates=TRUE)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install()
+
+BiocManager::install(c("DESeq2", "clusterProfiler", "org.Dm.eg.db"), update=FALSE)
 print("All done!")
