@@ -848,7 +848,7 @@ So far we've only looked at data from one region of the midgut (the anterior reg
 
 Use the codeblock below to run R commands and answer the following questions about the *lab* gene and the copper region.  The code for loading data from the copper region into a dataframe named `readCounts_Cu` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
 
-```{r lab-cu-exercise, exercise=TRUE}
+```{r lab-Cu-exercise, exercise=TRUE}
 
 ```
 
@@ -857,20 +857,186 @@ quiz(caption = "Examine expression of *lab* in the copper region",
   question("What is the read count for *lab* in this sample from the copper region?",
     answer("0"),
     answer("2522"),  
-    answer("2618"),
+    answer("5618"),
     answer("11208", correct=TRUE),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
+    allow_retry = TRUE
   ),
   question("How does expression of *lab* compare to expression of other genes in this sample from the copper region?",
     answer("Higher than most genes (in the top 25%)", correct=TRUE),
-    answer("Somewhere in the middle (in the middle 50%"),
+    answer("Somewhere in the middle (in the middle 50%)"),
     answer("Lower than most genes (in the bottom 25%)"),
     answer("No *lab* expression is detected"),
     allow_retry = TRUE
   )
 )
 ```
+
+```{r lab-Cu-exercise-hint-1}
+"
+What is the read count for *lab*?
+Use the filter command to find the row for the *lab* gene (using its FBgn number)
+"
+```
+
+```{r lab-Cu-exercise-hint-2}
+"
+What is the read count for *lab*?
+- Remember that you need the double equal sign to check for equality
+- Make sure to put the FBgn number in quotes
+"
+```
+
+```{r lab-Cu-exercise-hint-3}
+"
+What is the read count for *lab*?"
+filter(df, c=="some_name")
+"How would you change this command to filter for the *lab* gene?
+- What dataframe should you use?
+- What column should you use?
+- Replace `some_name` with the FBgn number for *lab*
+"
+```
+
+```{r lab-Cu-exercise-hint-4}
+"
+What is the read count for *lab*?
+"
+filter(readCounts_Cu, V1=="FBgn0002522")
+```
+
+```{r lab-Cu-exercise-hint-5}
+"
+How does expression of *lab* compare to other genes?
+There are several ways to do this, you could 
+- look at a histogram
+- use the R commands for summarizing the dataset
+- filter for genes with a read count greater than *lab*
+"
+```
+
+```{r lab-Cu-exercise-hint-6}
+"
+How does expression of *lab* compare to other genes?
+An easy way to do this is to use the `summary` command
+"
+```
+
+```{r lab-Cu-exercise-hint-7}
+"
+How does expression of *lab* compare to other genes?
+"
+summary(readCounts_Cu)
+"
+Is the read count for lab greater than the first quartile `1st Qu.` (25% of genes)?
+Is the read count for lab greater than the median `Median` (50% of genes)?
+Is the read count for lab greater than the third quartile `3rd Qu.` (75% of genes)?
+"
+```
+
+```{r lab-Cu-exercise-hint-8}
+"
+How does expression of *lab* compare to other genes?
+You could also find this out using the filter command.
+- Filter for genes with read counts greater than lab
+- Find out how many of these genes there are
+- Divide by the total number of genes
+"
+```
+
+```{r lab-Cu-exercise-hint-9}
+"
+How does expression of *lab* compare to other genes?
+You could also find this out using the filter command.
+"
+greater_than_lab <- filter(readCounts_Cu, V2>11208)
+dim(greater_than_lab)
+"
+Divide this number by the total number of genes (17559)
+"
+```
+
+We can use a histogram to get a better sense of how *lab* expression compares to expression of other genes in this sample.
+
+Use the codeblock below to run R commands, plot a histogram, and answer the following questions about the *lab* gene and the copper region.  The code for loading data from the copper region into a dataframe named `readCounts_Cu` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
+
+```{r lab-Cu-graph-exercise, exercise=TRUE}
+
+```
+
+```{r, lab-Cu-graph, echo=FALSE}
+quiz(caption = "Graph expression of *lab* in the copper region",
+  question("Where on the x-axis would the *lab* gene be plotted in a log10 histogram (which bar would it be in)?",
+    answer("Between -1 and 0"),
+    answer("Between 0 and 1"),
+    answer("Between 1 and 2"),
+    answer("Between 2 and 3"),
+    answer("Between 3 and 4"),
+    answer("Between 4 and 5", correct = TRUE),
+    answer("Between 5 and 6"),
+    answer("Between 6 and 7"),
+    answer("Between 7 and 8"),
+    answer("Between 8 and 9"),
+    allow_retry = TRUE
+  ),
+  question("How many other genes from this sample have read counts in the same range as the *lab* gene (between 10,000 and 100,000)?",
+    answer("Fewer than 1000", correct = TRUE),
+    answer("Between 1000 and 2000"),
+    answer("Between 2000 and 5000"),
+    answer("Between 5000 and 10000"),
+    answer("More than 10000"),
+    allow_retry = TRUE
+  )
+)
+```
+
+
+```{r lab-Cu-graph-exercise-hint-1}
+"
+Where on the x-axis would the *lab* gene be plotted?
+On a log10 graph, values on the x-axis are powers of 10.  Is *lab* gene expression...
+Between 10^-1 and 10^0?
+Between 10^0 and 10^1?
+Between 10^1 and 10^2?...
+"
+```
+
+```{r lab-Cu-graph-exercise-hint-2}
+"
+How many other genes have read counts in the same range?
+- Plot a histogram of log10 of the data from the copper region
+- Look at the R Cheat Sheet page or the Histogram page if you need a reminder of what this code should look like.
+- Make sure you're using the `readCounts_Cu` data
+- Remember to add 0.1 to the data if you want the genes with zero reads to show up
+"
+```
+
+```{r lab-Cu-graph-exercise-hint-3}
+"
+How many other genes have read counts in the same range?
+- Plot a histogram of log10 of the data from the copper region
+- Make sure you're using the second column of the `readCounts_Cu` dataframe
+- Look at the R Cheat Sheet page for a reminder of how to select the second column
+"
+```
+
+```{r lab-Cu-graph-exercise-hint-4}
+"
+How many other genes have read counts in the same range?
+- Plot a histogram of log10 of the data from the copper region
+"
+hist(log10(readCounts_Cu$V2 + 0.1), main="Log10 Read Counts for copper region")
+
+```
+
+```{r lab-Cu-graph-exercise-hint-5}
+"
+How many other genes have read counts in the same range?
+- Plot a histogram of log10 of the data from the copper region"
+hist(log10(readCounts_Cu$V2 + 0.1), main="Log10 Read Counts for copper region")
+"Look at the column for read counts in the same range as the *lab* gene (between 10,000 and 100,000).  How many genes are in this column?
+"
+```
+
 
 ### Compare expression data for *lab* in the copper and anterior (a1) regions
 
@@ -894,12 +1060,51 @@ quiz(caption = "Examine expression of *lab* in the anterior (a1) region",
   ),
   question("How does expression of *lab* compare to expression of other genes in this sample from the anterior (a1) region?",
     answer("Higher than most genes (in the top 25%)"),
-    answer("Somewhere in the middle (in the middle 50%"),
-    answer("Lower than most genes (in the bottom 25%)"),
+    answer("Somewhere in the middle (in the middle 50%)"),
+    answer("Lower than most genes (in the bottom 25%)", message = "We probably wouldn't say it's in the bottom 25% since more that 25% of genes have read counts of zero, and all of those genes are tied for the bottom.  There's a more precise answer you could give."),
     answer("No *lab* expression is detected", correct=TRUE),
     allow_retry = TRUE
   )
 )
+```
+
+```{r lab-a1-exercise-hint-1}
+"
+What is the read count for *lab*?
+Remember from the copper region, you can use the filter command for this 
+(using the FBgn number for *lab*)
+"
+```
+
+
+```{r lab-a1-exercise-hint-2}
+"
+What is the read count for *lab*?
+"
+filter(readCounts_a1, V1=="FBgn0002522")
+```
+
+
+```{r lab-a1-exercise-hint-3}
+"
+How does expression of *lab* compare to other genes?
+Remember from the copper region, there are several ways to do this 
+- look at a histogram
+- use the R commands for summarizing the dataset
+- filter for genes with a read count greater than *lab*
+"
+```
+
+```{r lab-a1-exercise-hint-4}
+"
+How does expression of *lab* compare to other genes?
+"
+summary(readCounts_a1)
+"
+Is the read count for lab greater than the first quartile `1st Qu.` (25% of genes)?
+Is the read count for lab greater than the median `Median` (50% of genes)?
+Is the read count for lab greater than the third quartile `3rd Qu.` (75% of genes)?
+"
 ```
 
 ### Conclusions
@@ -912,7 +1117,7 @@ However, this is just a start.  We only looked at one of the copper region sampl
 
 Now that you know how to take a first look at RNA-seq data, you can try it out on some real scientific data!
 
-So far we've mostly looked at a single sample of RNA-seq data from the Drosophila midgut.  But there are 30 different samples that make up our dataset.
+So far we've only looked at a few samples of RNA-seq data from the Drosophila midgut.  But there are 30 different samples that make up our dataset.
 
 Here is an image from the Marianes and Spradling (2013) paper showing 3 large regions (top) and 7 smaller subregions (bottom) of the *Drosophila* midgut.
 
@@ -945,7 +1150,7 @@ read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/asset
 
 Use the table to figure out the file name (starting with "SRR") for the sample you want to examine.  Use the codeblocks below to explore the data, calculating summary statistics and plotting out histograms.  There are several blocks for your convenience, use as many as you like.
 
-The first line of each code block load the data into `readCounts`.  Replace `FILENAMEHERE` in the first command with the filename for the sample you want to examine.  For example, for sample `am1` (which contains data from the anterior region `a1_3`), the filename is `SRR891601`, so the command should look like this: `readCounts <- read.table( "data/SRR891601.htseq" )`.  If you forget to change the filename, you will see an error message because R can't find a file named `FILENAMEHERE`.  If you need to reset this line, click the "Start Over" button at the top of the code block.  **You can always look back at other tabs and use the R cheat sheet to remind yourself how to set up a particular command.**
+The first line of each code block loads the data into `readCounts`.  Replace `FILENAMEHERE` in the first command with the filename for the sample you want to examine.  For example, for sample `am1` (which contains data from the anterior region `a1_3`), the filename is `SRR891601`, so the command should look like this: `readCounts <- read.table( "data/SRR891601.htseq" )`.  If you forget to change the filename, you will see an error message because R can't find a file named `FILENAMEHERE`.  If you need to reset this line, click the "Start Over" button at the top of the code block.  **You can always look back at other tabs and use the R cheat sheet to remind yourself how to set up a particular command.**
 
 There are instructions on Canvas about what to submit for this lab.
 
