@@ -342,7 +342,7 @@ Here are commands for plotting basic histograms in R:
 * `hist(v, breaks=10)` makes a histogram with 10 bars
 * `hist(v, breaks=c(5,10,15) )` makes a histogram that splits the data into bins at the points listed in the command.  For this example, the first bar would contain values from 0 to 5; the second bar would contain values from 5 to 10; and the third bar would contain values from 10 to 15.
 * `hist(log(v))` plots a histogram of the natural log of the values in the vector named `v`
-* `hist(log(v) + 0.1)` plots a histogram of the natural log of the values in the vector named `v` + 0.1.  This is useful for plotting data that contains values of zero.
+* `hist(log(v + 0.1))` plots a histogram of the natural log of the values in the vector named `v` + 0.1.  This is useful for plotting data that contains values of zero.
 
 
 ## First Look at RNA-seq Data
