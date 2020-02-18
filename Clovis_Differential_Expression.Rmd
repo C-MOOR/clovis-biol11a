@@ -3,7 +3,7 @@ title: "Differential Expression with DESeq2"
 output:
   learnr::tutorial:
     progressive: true
-    version: 1.1
+    version: 1.2
 subtitle: |
   | ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_notext.png){width=60%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo.jpg){width=38%}
 runtime: shiny_prerendered
@@ -558,7 +558,7 @@ Now that we have a list of interesting genes, we can use `clusterProfiler` progr
 
 For this analysis, we're using a padj cutoff of 0.01.
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height=6}
 temp <- results(midgut, contrast = c("condition", "a1", "p1") )
 a1_vs_p1 <- formatDESeq2Results(temp)
 sig_genes <- filter(a1_vs_p1, padj <= 0.01)
@@ -596,7 +596,7 @@ In the box below, use the `runClusterProfiler` command to find what groups of ge
 * Use the `dim` command to find out how many groups of genes there are, and change `showCategory` in `dotplot` to match
 * You may see an error message telling you that it "returned 1:many mapping between keys and columns" or some small percentage of your genes couldn't be found in the databases ("fail to map").  That's fine, it shouldn't affect results too much as long as it's a small percentage, and we always lose some genes when we compare across different databases since databases don't all have exactly the same genes.
 
-```{r clusterProfiler-practice, exercise=TRUE}
+```{r clusterProfiler-practice, exercise=TRUE, fig.height=6}
 ```
 
 
