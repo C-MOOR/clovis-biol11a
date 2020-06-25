@@ -1,6 +1,20 @@
+<a href="https://c-moor.github.io"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png" height=50></a> <a href="https://www.cloviscollege.edu"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg" height=50></a>
+
 # Introduction
 
-These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at Clovis Community College, Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
+These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
+
+Explore these tutorials live using these links:
+
+- [FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Mine for treasure in the FlyBase organism database
+- [RNA-seq](https://clovis.shinyapps.io/BIOL11A_Intro_RNA-seq) -- Explore gene expression by plotting RNA-seq counts across different tissues
+- [DESeq2](https://clovis.shinyapps.io/BIOL11A_Differential_Expression) -- Identify biological mechanisms that vary between tissues by differential expression
+
+# Dataset
+
+[Marianes and Spradling 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/) analyzed gene-expression across many different regions of the midgut in *Drosophilia melanogaster* using RNA-seq. Does high expression of a gene like <a href="http://flybase.org/reports/FBgn0002522">*lab*</a> in the Cu region mean the *lab* gene is important for cells of the Cu region? Maybe, maybe not. We explore questions like these in these exercises!  
+
+<img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2A.jpg" height=150> <img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2D.jpg" height=200>
 
 # Common Problems
 * The Differential Expression tutorial takes a little while to open (up to a few minutes).  This is normal, it has to download a dataset and run a series of analyses before it opens.
