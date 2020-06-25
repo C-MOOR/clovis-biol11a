@@ -4,11 +4,13 @@
 
 These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
 
-Explore these tutorials live using these links:
+### Explore these interactive tutorials live:
 
 - [FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Mine for treasure in the FlyBase organism database
 - [RNA-seq](https://clovis.shinyapps.io/BIOL11A_Intro_RNA-seq) -- Explore gene expression by plotting RNA-seq counts across different tissues
 - [DESeq2](https://clovis.shinyapps.io/BIOL11A_Differential_Expression) -- Identify biological mechanisms that vary between tissues by differential expression
+
+### View a student presentation: [[video](https://drive.google.com/uc?id=1Sl14KWkgdd3aecmKxWgjVnoapc2T1e0h)] [[slides](https://docs.google.com/presentation/d/1Uyhy2J2vflamWcdEcYbJ9VTfHfcwbRJe)]
 
 # Dataset
 
