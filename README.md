@@ -1,6 +1,6 @@
 <a href="https://c-moor.github.io"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png" height=50></a> <a href="https://www.cloviscollege.edu"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg" height=50></a>
 
-# Introduction
+# About
 
 These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
 
@@ -10,7 +10,7 @@ These tuturials were created for an Introductory Biology course for Biology majo
 - [RNA-seq](https://clovis.shinyapps.io/BIOL11A_Intro_RNA-seq) -- Explore gene expression by plotting RNA-seq counts across different tissues
 - [DESeq2](https://clovis.shinyapps.io/BIOL11A_Differential_Expression) -- Identify biological mechanisms that vary between tissues by differential expression
 
-### View a student presentation: [[video](https://drive.google.com/uc?id=1Sl14KWkgdd3aecmKxWgjVnoapc2T1e0h)] [[slides](https://docs.google.com/presentation/d/1Uyhy2J2vflamWcdEcYbJ9VTfHfcwbRJe)]
+### View a student presentation: [[Toll pathway](https://drive.google.com/file/d/1hZRc4H4gxOK9_B2Qn5mgbth4spGDnxqy)] [[Chitin clusters](https://docs.google.com/presentation/d/1Uyhy2J2vflamWcdEcYbJ9VTfHfcwbRJe)] 
 
 # Dataset
 
