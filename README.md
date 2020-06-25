@@ -1,8 +1,8 @@
-<a href="https://c-moor.github.io"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png" height=50></a> <a href="https://www.cloviscollege.edu"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg" height=50></a>
-
 # About
 
 These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
+
+<a href="https://c-moor.github.io"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png" height=50></a> <a href="https://www.cloviscollege.edu"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg" height=50></a>
 
 ### Explore these interactive tutorials live:
 
