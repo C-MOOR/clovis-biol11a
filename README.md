@@ -15,7 +15,7 @@ You can see our in-progress tutorials here:
 - **Biotechnology**
   - Coming soon!
 - **Biological Databases**
-  - Coming soon!
+  - [Introduction to Biological Databases](https://clovis.shinyapps.io/BIOL11A_Databases/)  -- Discover ways to access vast amounts of freely available scientific data
 
 ### Version 1: Explore these interactive tutorials live
 
