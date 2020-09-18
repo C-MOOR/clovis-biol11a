@@ -4,7 +4,7 @@ output:
   learnr::tutorial:
     css: css/cmoor.css
     progressive: true
-    version: 1.0
+    version: 2.0
 subtitle: |
   ![](images/cmoor_logo_notext.png){width=60%} ![](images/Clovis_logo.jpg){width=38%}
   [Get Help](https://c-moor.slack.com/)
