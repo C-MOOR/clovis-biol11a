@@ -111,7 +111,7 @@ The DNA sequence of the genomes for many important organisms can be found in the
 
 Here is the entry for the [human genome](https://www.ncbi.nlm.nih.gov/genome/?term=human[organism]).
 
-![Screenshot of Human Genome page from GenBank](/images/genbank_human_genome.png){width=100%}
+![Screenshot of Human Genome page from GenBank](images/genbank_human_genome.png){width=100%}
 
 
 
@@ -148,7 +148,7 @@ This screenshot is scrolled down a bit from the top of the page so you can see t
 Studying the structure of proteins can tell us something about how they work, or about what goes wrong when they don’t work.  For example, sickle cell anemia is caused by a single mutation in a gene for a subunit of hemoglobin.  This mutation causes the hemoglobin to stick together, forming long fibers that deform red blood cells.
 
 The [Protein Data Bank (PDB)](https://www.rcsb.org/) stores information about the structure of proteins.  Here is the entry for [Hemoglobin S](https://www.rcsb.org/structure/2hbs) (the sickle-cell form of hemoglobin) from PDB:
-![Screenshot of Hemoglobin S page from Protein Data Bank](/images/pdb_hemoglobin_S.png){width=100%}
+![Screenshot of Hemoglobin S page from Protein Data Bank](images/pdb_hemoglobin_S.png){width=100%}
 
 
 Here you can view the structure and see information about how it was obtained, including what experimental methods were used and some statistics about how accurate we think the structure is, as well a link to the journal article for the structure.
