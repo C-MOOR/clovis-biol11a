@@ -1,10 +1,23 @@
 # About
 
-These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
+These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  Some short tutorials were given as homework to provide background and prepare students for lab.  The longer "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
 
 <a href="https://c-moor.github.io"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png" height=50></a> <a href="https://www.cloviscollege.edu"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg" height=50></a>
 
-### Explore these interactive tutorials live:
+### Update: Version 2.0
+Updated tutorials are under development.  We are adding several more topics, including Model Organisms, Biotechnology, and Biological Databases.  We are also modularizing the tutorials into smaller units to increase flexibility.
+
+You can see our in-progress tutorials here:
+
+- **Model Organisms**
+  - Introduction to Model Organisms (WIP)
+  - [Model Organisms: Drosophila](https://clovis.shinyapps.io/BIOL11A_Drosophila/) -- Learn why scientists study fruit flies and discover important research being done with flies
+- **Biotechnology**
+  - Coming soon!
+- **Biological Databases**
+  - Coming soon!
+
+### Version 1: Explore these interactive tutorials live
 
 - [FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Mine for treasure in the FlyBase organism database
 - [RNA-seq](https://clovis.shinyapps.io/BIOL11A_Intro_RNA-seq) -- Explore gene expression by plotting RNA-seq counts across different tissues
