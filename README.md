@@ -17,6 +17,7 @@ You can see our in-progress tutorials here:
 - **Biological Databases**
   - [Introduction to Biological Databases](https://clovis.shinyapps.io/BIOL11A_Databases/)  -- Discover ways to access vast amounts of freely available scientific data
   - [Biological Databases: FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Research genes, find orthologs, and explore human disease models in the FlyBase organism database
+  - [Biological Databases: Human Protein Atlas](https://clovis.shinyapps.io/BIOL11A_HPA/) -- Research human proteins and find out where they're active in the Human Protein Atlas
 
 ### Version 1: Explore these interactive tutorials live
 
