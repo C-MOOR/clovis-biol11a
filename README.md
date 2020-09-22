@@ -16,10 +16,10 @@ You can see our in-progress tutorials here:
   - Coming soon!
 - **Biological Databases**
   - [Introduction to Biological Databases](https://clovis.shinyapps.io/BIOL11A_Databases/)  -- Discover ways to access vast amounts of freely available scientific data
+  - [Biological Databases: FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Research genes, find orthologs, and explore human disease models in the FlyBase organism database
 
 ### Version 1: Explore these interactive tutorials live
 
-- [FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Mine for treasure in the FlyBase organism database
 - [RNA-seq](https://clovis.shinyapps.io/BIOL11A_Intro_RNA-seq) -- Explore gene expression by plotting RNA-seq counts across different tissues
 - [DESeq2](https://clovis.shinyapps.io/BIOL11A_Differential_Expression) -- Identify biological mechanisms that vary between tissues by differential expression
 
