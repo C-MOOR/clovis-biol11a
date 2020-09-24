@@ -13,7 +13,7 @@ You can see our in-progress tutorials here:
   - Introduction to Model Organisms (WIP)
   - [Model Organisms: Drosophila](https://clovis.shinyapps.io/BIOL11A_Drosophila/) -- Learn why scientists study fruit flies and discover important research being done with flies
 - **Biotechnology**
-  - Coming soon!
+  - [Next-gen Sequencing](https://clovis.shinyapps.io/BIOL11A_Sequencing/) -- Learn the basic steps of a next-generation sequencing project and discover ways sequencing can be used to answer biological questions
 - **Biological Databases**
   - [Introduction to Biological Databases](https://clovis.shinyapps.io/BIOL11A_Databases/)  -- Discover ways to access vast amounts of freely available scientific data
   - [Biological Databases: FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Research genes, find orthologs, and explore human disease models in the FlyBase organism database
