@@ -156,6 +156,27 @@ Now, we can finally start sequencing the DNA fragments. To identify each base of
 The process of Illumina Sequencing can be difficult to conceptualize. Watch the video below to view an animation of the process:
 ![](https://youtu.be/fCd6B5HRaZ8)
 
+```{r sequencing-questions, echo=FALSE}
+quiz(caption="Illumina sequencing",
+  question("How does an Illumina sequencer determine whether a base is an A, T, C or G?",
+    answer("Each nucleotide has its own color", correct=TRUE),
+    answer("It adds only one base at a time"),
+    answer("The size of a DNA fragment"),
+    answer("Chain termination"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What method of sequencing does Illumina use?",
+    answer("Sequencing by synthesis", correct=TRUE),
+    answer("Bridge amplification"),
+    answer("Polymerase Chain Reaction"),
+    answer("Chain termination sequencing"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
+
 ## *In silico* - Computational Analysis
 
 Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**.  There are many methods of data analysis that can be used, depending on the project.

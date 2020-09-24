@@ -59,9 +59,8 @@ This lab will introduce you to real RNA-seq data, just like professional scienti
 
 1. Compare and contrast the genome and the transcriptome
 2. Describe the steps involved in RNA-seq
-3. Define bioinformatics and its role in biology
-4. Use R to analyze HTSeq files
-5. Create and analyze histograms from HTSeq files
+3. Use R to analyze HTSeq files
+4. Create and analyze histograms from HTSeq files
 
 #### Authors:
 * [Dr. Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)
@@ -115,23 +114,7 @@ Before transcriptome samples can be sequenced, scientists must (1) change the mR
 
 We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
 
- It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing. There are a few methods for next-gen sequencing, but we will focus on Illumina sequencing.
- 
- The following images are from:
- 
-* [Illumina HiSeq 2500](https://commons.wikimedia.org/wiki/File:Illumina_HiSeq_2500.jpg) by Konrad Förstner, 3 December 2013. License: [Creative Commons CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
-* [Next generation sequencing slide](https://commons.wikimedia.org/wiki/File:Next_generation_sequencing_slide.jpg) by Bainscou, 7 April 2015. License: [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/deed.en)
-
-![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Illumina_HiSeq_2500.jpg){width=47.5%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Next_generation_sequencing_slide.jpg){width=51.1%}
-
-Illumina Sequencing uses a method called sequencing by synthesis. To prepare a RNA-seq sample, the cDNA is first fragmented into 100-200bp pieces and special adapters are attached to the ends of the fragmented cDNA. These adapters will be important for sequencing the cDNA. At this point, the samples are usually sent off to a facility that has an Illumina Sequencer machine (Figure 2a).
-
-At the sequencing facility, the sample is loaded into a lane on a special glass chip (Figure 2b). The chip is covered with millions of DNA sequences complementary to the special adapters. This complementarity will allow the adapters on the cDNA fragments to hybridize with the DNA molecules in the lane. The chip, which can hold up to eight samples, is then loaded into an Illumina Sequencing machine. Through a process known as bridge amplification, each individual cDNA fragment is amplified. This step is important to increase the signal from each cDNA fragment to the computer, which cannot detect a single DNA molecule.  The final result is 150 million clusters of DNA molecules, one for each of the original cDNA fragments. Now, we can finally start sequencing the cDNA fragments. To identify each base of the sequence, the four DNA nucleotides (A, T, G, C) are labeled with a different color. The first base is added to each of the millions of clusters and the computer records the first base identity for all the clusters. A second base is added to every cluster and the computer records the second base. This continues for 50-100bp. This process is known as sequencing by synthesis. One lane can produce **up to 150 million short sequences** each corresponding to one cluster in the lane. Once the sequencing is complete, the data is sent back to the scientists for analysis.
-
-The process of Illumina Sequencing can be difficult to conceptualize. Watch the video below to view an animation of the process:
-
-![](https://www.youtube.com/watch?v=fCd6B5HRaZ8)
-
+ It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing.
 
 
 ```{r sequencing-questions, echo=FALSE}
@@ -151,22 +134,6 @@ quiz(caption="RNA sequencing",
     answer("Makes DNA using RNA as a template", correct=TRUE),
     allow_retry = TRUE,
     random_answer_order = TRUE
-  ),
-  question("How does an Illumina sequencer determine whether a base is an A, T, C or G?",
-    answer("Each nucleotide has its own color", correct=TRUE),
-    answer("It adds only one base at a time"),
-    answer("The size of a DNA fragment"),
-    answer("Chain termination"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("What method of sequencing does Illumina use?",
-    answer("Sequencing by synthesis", correct=TRUE),
-    answer("Bridge amplification"),
-    answer("Polymerase Chain Reaction"),
-    answer("Chain termination sequencing"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
   )
 )
 ```
@@ -174,7 +141,7 @@ quiz(caption="RNA sequencing",
 
 ## In silico - Computational Analysis
 
-Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**. When biologists use computer science to answer questions about biology, usually related to macromolecules (e.g. RNA and DNA), it is called **bioinformatics**. As scientists continue to collect more and more data, the field of bioinformatics continues to grow.
+Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**.
 
 Today's lab will investigate how scientists use computer science to analyze RNA-seq data. In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
 
@@ -186,13 +153,6 @@ The RNA-seq libraries from today's lab are from:
 
 ```{r bioinformatics-questions, echo=FALSE}
 quiz(caption="Computational Analysis",
-  question("The field that combines computer science with biology is known as what?",
-    answer("Computational Biology"),
-    answer("Computer Science"),
-    answer("Bioinformatics", correct=TRUE),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
   question("cDNA sequences will mostly align to which part of the genome?",
     answer("Introns"),
     answer("Exons", correct=TRUE),
