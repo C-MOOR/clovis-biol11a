@@ -10,7 +10,7 @@ Updated tutorials are under development.  We are adding several more topics, inc
 You can see our in-progress tutorials here:
 
 - **Model Organisms**
-  - Introduction to Model Organisms (WIP)
+  - [Introduction to Model Organisms](https://clovis.shinyapps.io/BIOL11A_Model_Organisms/) -- Meet some of the most common lab organisms and learn why scientists use these "model organisms" for research
   - [Model Organisms: Drosophila](https://clovis.shinyapps.io/BIOL11A_Drosophila/) -- Learn why scientists study fruit flies and discover important research being done with flies
 - **Biotechnology**
   - [Next-gen Sequencing](https://clovis.shinyapps.io/BIOL11A_Sequencing/) -- Learn the basic steps of a next-generation sequencing project and discover ways sequencing can be used to answer biological questions
