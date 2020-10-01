@@ -22,6 +22,7 @@ author:
   - "[Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)"
 learning_goals:
   - "Compare and contrast the genome (DNA) and the transcriptome (RNA)"
+  - "Explain what is being measured by RNA-seq"
   - "Describe the steps involved in RNA-seq"
 time: "15 min"
 prerequisites: "None"
@@ -92,23 +93,57 @@ tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
 
 ## Introduction
 
-All of your somatic cells contain the same complete set of genetic information (**genome**), yet a skeletal muscle cell differs greatly from a neuron in both appearance and function. The differences between these cell types are due to **differential gene expression**, or expression of different genes by cells with the same genome. Cells can also change their gene expression in response to environmental cues. For example, virus-infected cells in humans can release a signaling molecule called interferon. Interferon serves as a messenger, warning nearby cells of the virus' presence. When the interferon reaches the neighboring cell, it triggers a signaling cascade which ultimately leads to a change in gene expression. Having received the warning, the cells will increase expression of genes required to fight off a virus. After the viral threat is gone, the cell's gene expression will return to normal. Such dynamic regulation of gene expression is necessary for both multicellular and unicellular organisms to respond to and interact with their environment.
+## What is RNA-seq?
 
+DNA contains the instructions for life, telling every organism how to survive, grow, and reproduce.  Individual instructions in DNA are called "**genes**".
 
-Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome**, the specific collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on an approach called **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample. We will cover this process in three steps: *in vivo*, *in vitro* and *in silico*.
+All humans have essentially the same DNA as each other - they all have the same genes, so they all have the same body structure and organs, and their bodies work in the same ways.  People may have slightly different versions ("alleles") of some genes (like the genes that control eye color or height) but they have the same total set of genes.  Scientists are still trying to discover and understand the complete set of human genes!
 
-![Thomas Shafee (2016) Summary of RNA-seq. https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)](images/Summary_of_RNA-Seq.png){width=75%}
+Complex animals, like humans, mice, or flies are made up of many different types of **cells**, all doing different jobs.  Muscle cells, skin cells, and brain cells are all quite different from each other, even though they all have the same DNA.  This is because each cell only **expresses** part of its DNA - only some of the genes are "turned on".  For example, intestinal cells turn on genes for digesting food, and muscle cells turn on genes for converting the energy from sugar or fat into motion.  
 
+Cells can also change their gene expression in response to environmental cues. For example, virus-infected cells in humans can release a signaling molecule to warn nearby cells of the virus' presence. When the signal reaches neighboring cells, they will increase expression of genes required to fight off a virus. After the viral threat is gone, the cells' gene expression will return to normal. Such dynamic regulation of gene expression is necessary for both multicellular and unicellular organisms to respond to and interact with their environment.
 
-```{r question-1}
-question("How does a skin cell differ from a kidney cell?",
-  answer("They have different genomes"),
-  answer("They have different transcriptomes", correct=TRUE),
-  answer("They carry different DNA mutations"),
-  allow_retry = TRUE
+```{r DNA-and-gene-expression}
+quiz(caption="DNA and gene expression",
+  question("How does a human skin cell differ from a frog skin cell?",
+    answer("They have different DNA with different genes", correct=TRUE),
+    answer("They have the same DNA with the same genes, but express different genes"),
+    answer("They have the same DNA  with the same genes, but with different versions of those genes (alleles)"),
+    allow_retry = TRUE
+  ),
+      question("How does a skin cell from one human differ from a skin cell from a different human?",
+    answer("They have different DNA with different genes"),
+    answer("They have the same DNA with the same genes, but express different genes"),
+    answer("They have the same DNA with the same genes, but with different versions of those genes (alleles)", correct=TRUE),
+    allow_retry = TRUE
+  ),
+  question("How does a human skin cell differ from a kidney cell from the same human?",
+    answer("They have different DNA with different genes"),
+    answer("They have the same DNA with the same genes, but express different genes", correct=TRUE),
+    answer("They have the same DNA with the same genes, but with different versions of those genes (alleles)"),
+    allow_retry = TRUE
+  )
 )
 ```
 
+RNA-seq is a method for measuring which genes are being expressed (turned on), which can help us understand how cells do their jobs.  To express a gene, a cell makes copies of the gene's DNA sequence; these copies are made out of RNA.  This process is called **transcription**, and the RNAs are called **mRNAs** (messenger RNAs).  If we collect and read the mRNAs from a cell, we can figure out which genes were expressed in that cell.
+
+Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes, or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome** - the collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample.
+
+![Thomas Shafee (2016) Summary of RNA-seq. https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)](images/Summary_of_RNA-Seq.png){width=75%}
+
+```{r what-is-RNA-seq}
+quiz(caption="RNA-seq",
+  question("What is the main goal of RNA-seq?",
+    answer("To measure which genes are present in a cell's DNA"),
+    answer("To measure which genes are expressed (active) in a cell", correct=TRUE),
+    answer("To measure which genes are mutated in a cell"),
+    answer("To measure which alleles (versions of genes) are present in a cell"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
 
 ## *In vivo* - Eukaryotic Gene Expression
 
@@ -185,6 +220,6 @@ quiz(caption="Computational Analysis",
 - All the cells of an organism have the same DNA, but different cell types can behave very differently depending which genes are expressed ("turned on")
 - RNA-seq helps us learn about gene functions by telling us under what conditions different genes are expressed or not expressed
 - There are 3 major steps to an RNA-seq project:
-  1. Sample collection (from organisms)
+  1. Collect samples (from organisms)
   2. Prepare and sequence the RNA (purify mRNAs and convert to cDNA, then sequence)
   3. Analyze the data (computationally align the reads to a genome and count them)
