@@ -1,0 +1,190 @@
+---
+title: "RNA-seq: Introduction"
+output:
+  learnr::tutorial:
+    css: css/cmoor.css
+    progressive: true
+    version: 2.0
+subtitle: |
+  ![](images/cmoor_logo_notext.png){width=60%} ![](images/Clovis_logo.jpg){width=38%}
+  [Get Help](https://c-moor.slack.com/)
+runtime: shiny_prerendered
+
+# The fields below will be used to create the first page of the tutorial.  You can use markdown.
+# For summary, all new lines must be indented to the same level as the first line.
+# The image must be surrounded with quotes
+summary: |
+  RNA-seq is a common biological research technique for measuring which genes are being expressed (turned on), which can help us understand how cells do their jobs.  This tutorial provides a brief overview of RNA-seq.
+image: "![](images/RNA-seq_overview.png)"
+image_caption: "Malachi Griffith, Jason R. Walker, Nicholas C. Spies, Benjamin J. Ainscough, Obi L. Griffith (2015) RNA-seq data generation. A typical RNA-seq experimental workflow involves the isolation of RNA from samples of interest, generation of sequencing libraries, use of a high-throughput sequencer to produce hundreds of millions of short paired-end reads, alignment of reads against a reference genome or transcriptome, and downstream analysis for expression estimation, differential expression, transcript isoform discovery, and other applications. 	http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393 License: [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/deed.en)"
+author:
+  - "[Stephanie Coffman](https://c-moor.github.io/portfolio/coffmanstephanie/)"
+  - "[Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)"
+learning_goals:
+  - "Compare and contrast the genome (DNA) and the transcriptome (RNA)"
+  - "Describe the steps involved in RNA-seq"
+time: "15 min"
+prerequisites: "None"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+<!---
+Don't edit the Welcome page, it will be filled in automatically using the information from the YAML header
+Edit the rest of the document as you like
+There are some suggested sections to provide a standard order across our tutorials, but they may not all be needed/appropriate for all tutorials.
+Section 1. Content 1 has example quizes and exercises
+-->
+
+## Welcome {.splashpage}
+
+### `r rmarkdown::metadata$title`
+
+<div class="splashpage-container">
+  <figure class="splashpage-image">
+  `r rmarkdown::metadata$image`{width=100%}
+  <figcaption class="caption">`r rmarkdown::metadata$image_caption`</figcaption>
+  </figure>
+
+  `r rmarkdown::metadata$summary`
+  
+
+</div>
+
+
+#### Learning Goals
+
+```{r}
+# Extract learning goals from YAML and add HTML tags to make an ordered list
+learningGoals <- rmarkdown::metadata$learning_goals
+learningGoals <- paste("<li>", learningGoals, "</li>", sep="", collapse="")
+
+```
+
+<ol>
+`r learningGoals`
+</ol>
+
+#### Authors:
+
+```{r}
+# Extract authors from YAML and add HTML tags to make a list
+authorList <- rmarkdown::metadata$author
+authorList <- paste("<li>", authorList, "</li>", sep="", collapse="")
+
+```
+
+<ul>
+`r authorList`
+</ul>
+
+
+```{r}
+# Extract the tutorial version from the YAML data and store it so we can print it using inline r code below.  This can't be done directly inline because the code for extracting the YAML data uses backticks
+tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
+```
+
+#### Version: `r tv`
+
+## Introduction
+
+All of your somatic cells contain the same complete set of genetic information (**genome**), yet a skeletal muscle cell differs greatly from a neuron in both appearance and function. The differences between these cell types are due to **differential gene expression**, or expression of different genes by cells with the same genome. Cells can also change their gene expression in response to environmental cues. For example, virus-infected cells in humans can release a signaling molecule called interferon. Interferon serves as a messenger, warning nearby cells of the virus' presence. When the interferon reaches the neighboring cell, it triggers a signaling cascade which ultimately leads to a change in gene expression. Having received the warning, the cells will increase expression of genes required to fight off a virus. After the viral threat is gone, the cell's gene expression will return to normal. Such dynamic regulation of gene expression is necessary for both multicellular and unicellular organisms to respond to and interact with their environment.
+
+
+Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome**, the specific collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on an approach called **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample. We will cover this process in three steps: *in vivo*, *in vitro* and *in silico*.
+
+![Thomas Shafee (2016) Summary of RNA-seq. https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)](images/Summary_of_RNA-Seq.png){width=75%}
+
+
+```{r question-1}
+question("How does a skin cell differ from a kidney cell?",
+  answer("They have different genomes"),
+  answer("They have different transcriptomes", correct=TRUE),
+  answer("They carry different DNA mutations"),
+  allow_retry = TRUE
+)
+```
+
+
+## *In vivo* - Eukaryotic Gene Expression
+
+To understand how scientists isolate and sequence mRNA, we must review how mRNA is made in a eukaryotic cell.
+
+![OpenStax Biology 2nd Edition (2018). mRNA processing. https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)](images/OpenStax_Biology_2ndEd_mRNA_processing.png){width=75%}
+
+In eukaryotes, transcription occurs in the nucleus, where the information in the DNA is transcribed into a pre-mRNA molecule containing both **exons** (protein-coding sequences) and **introns** (non-protein coding regions). The introns are ultimately spliced out, connecting the exons into one message that can be used to build a protein. On the 3' end of the mRNA, about 200 extra adenines are added, creating the Poly-A tail. This Poly-A tail is important for distinguishing mRNA from other types of RNA in the cell. Additionally, a cap is added to the 5' end of the mRNA.
+
+```{r question-in-vivo-RNA}
+question("Which of the following are features of a mature (complete) mRNA molecule?  HINT: Choose more than one answer.",
+  answer("Introns"),
+  answer("Exons", correct=TRUE),
+  answer("5' cap", correct=TRUE),
+  answer("Poly-A tail", correct=TRUE),
+  allow_retry = TRUE
+)
+```
+
+## *In vitro* - RNA sequencing
+Before transcriptome samples can be sequenced, scientists must (1) change the mRNA into DNA, and (2) purify the mRNA (i.e. remove other cellular RNAs).
+
+We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
+
+ It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing.
+
+
+```{r sequencing-questions, echo=FALSE}
+quiz(caption="RNA sequencing",
+  question("Which feature of the mRNA allows scientists to specifically sequence the mRNAs?",
+    answer("Introns"),
+    answer("5'-cap"),
+    answer("Poly-A Tail", correct=TRUE),
+    answer("Exons"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What is the function of the Reverse Transcriptase enzyme?",
+    answer("Makes RNA using DNA as a template"),
+    answer("Makes DNA using DNA as a template"),
+    answer("Makes RNA using RNA as a template"),
+    answer("Makes DNA using RNA as a template", correct=TRUE),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
+
+
+## In silico - Computational Analysis
+
+Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**.
+
+In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. After the reads have been aligned, a computer program can count how many reads came from each gene.**The more sequences that align to the gene, the higher the expression level of the gene**.  We can then compare gene expression from different cells, samples, and conditions to try to understand which genes are involved in different biological processes. 
+
+
+```{r bioinformatics-questions, echo=FALSE}
+quiz(caption="Computational Analysis",
+  question("cDNA sequences will mostly align to which part of the genome?",
+    answer("Introns"),
+    answer("Exons", correct=TRUE),
+    answer("Regulatory regions"),
+    answer("Repetitive elements"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+)
+```
+
+
+
+## Summary
+
+- All the cells of an organism have the same DNA, but different cell types can behave very differently depending which genes are expressed ("turned on")
+- RNA-seq helps us learn about gene functions by telling us under what conditions different genes are expressed or not expressed
+- There are 3 major steps to an RNA-seq project:
+  1. Sample collection (from organisms)
+  2. Prepare and sequence the RNA (purify mRNAs and convert to cDNA, then sequence)
+  3. Analyze the data (computationally align the reads to a genome and count them)

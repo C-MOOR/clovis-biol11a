@@ -52,12 +52,15 @@ tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
 
 This lab will introduce you to real RNA-seq data, just like professional scientists work with.  Today you will learn what RNA-seq data looks like and will spend some time exploring data from a single biological sample.  In the next lab you will learn how to compare RNA-seq data from different samples.
 
+ The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
+ 
+ The RNA-seq libraries from today's lab are from:
+[eLife 2013;2:e00886 DOI: 10.7554/eLife.00886.](https://elifesciences.org/articles/00886)
+
 #### Learning Goals
 
-1. Compare and contrast the genome and the transcriptome
-2. Describe the steps involved in RNA-seq
-3. Use R to analyze HTSeq files
-4. Create and analyze histograms from HTSeq files
+1. Use R to analyze HTSeq files
+1. Create and analyze histograms from HTSeq files
 
 #### Authors:
 * [Dr. Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)
@@ -65,102 +68,6 @@ This lab will introduce you to real RNA-seq data, just like professional scienti
 
 
 #### Version: `r tv`
-
-
-## Introduction
-
-All of your somatic cells contain the same complete set of genetic information (**genome**), yet a skeletal muscle cell differs greatly from a neuron in both appearance and function. The differences between these cell types are due to **differential gene expression**, or expression of different genes by cells with the same genome. Cells can also change their gene expression in response to environmental cues. For example, virus-infected cells in humans can release a signaling molecule called interferon. Interferon serves as a messenger, warning nearby cells of the virus' presence. When the interferon reaches the neighboring cell, it triggers a signaling cascade which ultimately leads to a change in gene expression. Having received the warning, the cells will increase expression of genes required to fight off a virus. After the viral threat is gone, the cell's gene expression will return to normal. Such dynamic regulation of gene expression is necessary for both multicellular and unicellular organisms to respond to and interact with their environment.
-
-
-Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome**, the specific collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on an approach called **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample. We will cover this process in three steps: *in vivo*, *in vitro* and *in silico* (Figure 1).
-
-This image is from [Summary of RNA-seq](https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg) by Thomas Shafee,  5 October 2016. License: [Creative Commons Attribution 4.0 International (CC BY 4.0) License](https://creativecommons.org/licenses/by/4.0/deed.en)
-![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Summary_of_RNA-Seq.png){width=100%}
-
-```{r question-1}
-question("How does a skin cell differ from a kidney cell?",
-  answer("They have different genomes"),
-  answer("They have different transcriptomes", correct=TRUE),
-  answer("They carry different DNA mutations"),
-  allow_retry = TRUE
-)
-```
-
-
-## *In vivo* - Eukaryotic Gene Expression
-
-To understand how scientists isolate and sequence mRNA, we must review how mRNA is made in a eukaryotic cell.
-
-This image is from [OpenStax Biology 2nd Edition](http://cnx.org/contents/8d50a0af-948b-4204-a71d-4826cba765b8@15.1) and is shared using the [Creative Commons Attribution License 4.0](https://creativecommons.org/licenses/by/4.0/).
-![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/OpenStax_Biology_2ndEd_mRNA_processing.png){width=100%}
-
-In eukaryotes, transcription occurs in the nucleus, where the information in the DNA is transcribed into a pre-mRNA molecule containing both **exons** (protein-coding sequences) and **introns** (non-protein coding regions). The introns are ultimately spliced out, connecting the exons into one message that can be used to build a protein. On the 3' end of the mRNA, about 200 extra adenines are added, creating the Poly-A tail. This Poly-A tail is important for distinguishing mRNA from other types of RNA in the cell. Additionally, a cap is added to the 5' end of the mRNA.
-
-```{r question-in-vivo-RNA}
-question("Which of the following are features of a mature (complete) mRNA molecule?  HINT: Choose more than one answer.",
-  answer("Introns"),
-  answer("Exons", correct=TRUE),
-  answer("5' cap", correct=TRUE),
-  answer("Poly-A tail", correct=TRUE),
-  allow_retry = TRUE
-)
-```
-
-## *In vitro* - RNA sequencing
-Before transcriptome samples can be sequenced, scientists must (1) change the mRNA into DNA, and (2) purify the mRNA (i.e. remove other cellular RNAs).
-
-We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
-
- It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing.
-
-
-```{r sequencing-questions, echo=FALSE}
-quiz(caption="RNA sequencing",
-  question("Which feature of the mRNA allows scientists to specifically sequence the mRNAs?",
-    answer("Introns"),
-    answer("5'-cap"),
-    answer("Poly-A Tail", correct=TRUE),
-    answer("Exons"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("What is the function of the Reverse Transcriptase enzyme?",
-    answer("Makes RNA using DNA as a template"),
-    answer("Makes DNA using DNA as a template"),
-    answer("Makes RNA using RNA as a template"),
-    answer("Makes DNA using RNA as a template", correct=TRUE),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  )
-)
-```
-
-
-## In silico - Computational Analysis
-
-Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**.
-
-Today's lab will investigate how scientists use computer science to analyze RNA-seq data. In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files. **The more sequences that align to the gene, the higher the expression level of the gene**. The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
-
-
-
-The RNA-seq libraries from today's lab are from:
-[eLife 2013;2:e00886 DOI: 10.7554/eLife.00886.](https://elifesciences.org/articles/00886)
-
-
-```{r bioinformatics-questions, echo=FALSE}
-quiz(caption="Computational Analysis",
-  question("cDNA sequences will mostly align to which part of the genome?",
-    answer("Introns"),
-    answer("Exons", correct=TRUE),
-    answer("Regulatory regions"),
-    answer("Repetitive elements"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  )
-)
-```
-
 
 ## R cheat sheet
 
@@ -199,7 +106,7 @@ Here are commands for plotting basic histograms in R:
 
 ### HTSeq files: read count data
 
-The data from RNA-seq is basically a list of short DNA sequences, called *sequencing reads* ("reads" for short).  These reads must be run through computer programs to determine what gene they came from and calculate the *expression level* of each gene.  The RNA-seq data on C-MOOR has already gone through this first step of processing.
+Today's lab will investigate how scientists use computer science to analyze RNA-seq data.  The data from RNA-seq is basically a list of short DNA sequences, called *sequencing reads* ("reads" for short).  These reads must be run through computer programs to determine what gene they came from and calculate the *expression level* of each gene.  The RNA-seq data on C-MOOR has already gone through this first step of processing.
 
 We will be working with files made by the program HTSeq, which will end with the extenstion ".htseq"  For each gene, an htseq file contains the "gene identifier" and the number of reads that came from that gene (the "read count").  The gene identifier is a name or number unique to the gene, and these will be different depending on what organism you are studying and on how the initial processing was done.
 
@@ -942,7 +849,6 @@ Use the table to figure out the file name (starting with "SRR") for the sample y
 
 The first line of each code block loads the data into `readCounts`.  Replace `FILENAMEHERE` in the first command with the filename for the sample you want to examine.  For example, for sample `am1` (which contains data from the anterior region `a1_3`), the filename is `SRR891601`, so the command should look like this: `readCounts <- read.table( "data/SRR891601.htseq" )`.  If you forget to change the filename, you will see an error message because R can't find a file named `FILENAMEHERE`.  If you need to reset this line, click the "Start Over" button at the top of the code block.  **You can always look back at other tabs and use the R cheat sheet to remind yourself how to set up a particular command.**
 
-There are instructions on Canvas about what to submit for this lab.
 
 ```{r prepare-tryout, cache=TRUE}
 b <- "test"
