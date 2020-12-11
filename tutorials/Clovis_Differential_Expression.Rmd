@@ -53,9 +53,7 @@ plotAcrossRegions <- function( x ) {
     theme( axis.text.x = element_text( angle=90, vjust=0.5 ) )
 }
 
-download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
-untar( "data.tgz" )
-midgut_tsv <- read.table("https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/data/midgut.tsv", header=TRUE)
+midgut_tsv <- read.table("/opt/clovis-biol11a/assets/data/midgut.tsv", header=TRUE)
 midgut <- DESeqDataSetFromHTSeqCount(midgut_tsv, "data/", design = ~condition)
 midgut <- DESeq(midgut)
 ```

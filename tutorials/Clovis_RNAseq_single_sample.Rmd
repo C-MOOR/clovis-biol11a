@@ -17,9 +17,6 @@ tutorial_options(exercise.completion=TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 options(scipen=5)
 
-download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
-untar( "data.tgz" )
-
 # Get a single file as a data.frame (readcounts) for use in student coding blocks.
 # Also make a labeled version (a).
 readCounts <- read.table( "data/SRR891601.htseq" )
@@ -1098,8 +1095,6 @@ There are instructions on Canvas about what to submit for this lab.
 
 ```{r prepare-tryout, cache=TRUE}
 b <- "test"
-download.file( "https://drive.google.com/uc?id=13wOmFWPOdmDRLFIaM_8Vu4aJKX99kXEh", "data.tgz", mode="wb" )
-untar( "data.tgz" )
 ```
 
 ```{r freeplay-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
