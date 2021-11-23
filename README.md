@@ -1,12 +1,26 @@
 # About
 
-These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  The Intro R tutorial was given as homework, and the "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
+These tuturials were created for an Introductory Biology course for Biology majors (BIOL11A) at [Clovis Community College](https://www.cloviscollege.edu) in Fresno, CA.  Some short tutorials were given as homework to provide background and prepare students for lab.  The longer "Single Sample" and "Differential Expression" tutorials were completed over two lab sessions (3 hours each).
 
 <a href="https://c-moor.github.io"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/cmoor_logo_text_horizontal.png" height=50></a> <a href="https://www.cloviscollege.edu"><img src="https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Clovis_logo_wide.jpg" height=50></a>
 
-### Explore these interactive tutorials live:
+### Update: Version 2.0
+Updated tutorials are under development.  We are adding several more topics, including Model Organisms, Biotechnology, and Biological Databases.  We are also modularizing the tutorials into smaller units to increase flexibility.
 
-- [FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Mine for treasure in the FlyBase organism database
+You can see our in-progress tutorials here:
+
+- **Model Organisms**
+  - [Introduction to Model Organisms](https://clovis.shinyapps.io/BIOL11A_Model_Organisms/) -- Meet some of the most common lab organisms and learn why scientists use these "model organisms" for research
+  - [Model Organisms: Drosophila](https://clovis.shinyapps.io/BIOL11A_Drosophila/) -- Learn why scientists study fruit flies and discover important research being done with flies
+- **Biotechnology**
+  - [Next-gen Sequencing](https://clovis.shinyapps.io/BIOL11A_Sequencing/) -- Learn the basic steps of a next-generation sequencing project and discover ways sequencing can be used to answer biological questions
+- **Biological Databases**
+  - [Introduction to Biological Databases](https://clovis.shinyapps.io/BIOL11A_Databases/)  -- Discover ways to access vast amounts of freely available scientific data
+  - [Biological Databases: FlyBase](https://clovis.shinyapps.io/BIOL11A_FlyBase) -- Research genes, find orthologs, and explore human disease models in the FlyBase organism database
+  - [Biological Databases: Human Protein Atlas](https://clovis.shinyapps.io/BIOL11A_HPA/) -- Research human proteins and find out where they're active in the Human Protein Atlas
+
+### Version 1: Explore these interactive tutorials live
+
 - [RNA-seq](https://clovis.shinyapps.io/BIOL11A_Intro_RNA-seq) -- Explore gene expression by plotting RNA-seq counts across different tissues
 - [DESeq2](https://clovis.shinyapps.io/BIOL11A_Differential_Expression) -- Identify biological mechanisms that vary between tissues by differential expression
 
