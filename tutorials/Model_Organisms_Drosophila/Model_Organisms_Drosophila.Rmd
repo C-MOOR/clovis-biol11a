@@ -6,7 +6,8 @@ output:
     progressive: true
     version: 1.0
 subtitle: |
-  ![](images/cmoor_logo_notext.png){width=60%} ![](images/Clovis_logo.jpg){width=38%}
+  ![](images/cmoor_logo_notext.png){width=60%}
+  
   [Get Help](https://c-moor.slack.com/)
 runtime: shiny_prerendered
 
@@ -16,7 +17,7 @@ runtime: shiny_prerendered
 summary: |
   The fruit fly (*Drosophila melanogaster*) is a popular model organism used to study a wide range of biological questions.  This tutorial will introduce you to some of the types of research being conducted with fruit flies, give a brief overview of *Drosophila* biology, and show you what it's like to work with *Drosophila* in the lab.
 image: "![](images/fruit_fly.jpg)"
-image_caption: 	"Sanjay Acharya (2017) A fruit fly (*Drosophila melanogaster*) feeding off a banana. https://commons.wikimedia.org/wiki/File:Drosophila_melanogaster_Proboscis.jpg License: [CC BY 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)"
+image_caption: "Sanjay Acharya (2017) A fruit fly (*Drosophila melanogaster*) feeding off a banana. https://commons.wikimedia.org/wiki/File:Drosophila_melanogaster_Proboscis.jpg License: [CC BY 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)"
 author:
   - "[Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)"
 learning_goals:
@@ -25,6 +26,7 @@ learning_goals:
   - "Compare and contrast the fruit fly genome to the human genome"
   - "Briefly describe the fruit fly life cycle"
 time: "20 min"
+prerequisites: "None"
 ---
 
 ```{r setup, include=FALSE}
@@ -90,7 +92,6 @@ tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
 
 #### Version: `r tv`
 
-
 ## Why fruit flies?
 
 At first glance, fruit flies don’t look anything like humans.  But at a deep level, we share many anatomical structures, physiological systems, and developmental patterns.  Many *Drosophila* genes have parallels (“orthologs”) in humans that perform similar functions.
@@ -108,11 +109,11 @@ Almost every organ in humans has a match in flies, and the genes that control th
 
 ![Prokop, Andreas; Patel, Sanjai (2018): Biology lessons for schools using the fruit fly Drosophila. figshare. Dataset. https://doi.org/10.6084/m9.figshare.1352064.v31 License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)](images/fly_human_organs.jpg){width=100%}
 
-- **Eyes** - while *Drosophila* eyes are quite different from humans (*Drosophila* have compound eyes), the same genes that control development of fly eyes are involved in eye development in many species including frogs, mice, and humans.
-- **Nervous system** - The central nervous systems of *Drosophila* and humans have a similar subdivision into a **brain** and **spinal cord** (ventral cord in *Drosophila*).  The **nerve cells** of *Drosophila* are quite similar humans and many of the same genes are involved in their function.
-- **Heart** - the structure of the *Drosophila* heart is different from a human, but they use the same mechanisms to control their heartbeats.  Both human and *Drosophila* heart cells have electrical properties that allow them to operate without being stimulated by the nervous system, and they both have **pacemaker cells** to regulate their heartbeat
-- **Digestive system** - The digestive systems in *Drosophila* and humans have similar organizations with regions that perform similar functions.  First is the **esophagus**,  which carries food to the **crop** (stomach in humans) where it is broken down.  Then the **midgut** (small intestine), and **hindgut** (large intestine) are responsible for absorbing the food so it can be used by the rest of the body.
-- **Reproductive tract** - like humans, *Drosophila* have **testes** which produce sperm and **ovaries** which produce eggs.
+- **Eyes** - While *Drosophila* eyes are quite different from humans (*Drosophila* have compound eyes), the same genes that control development of fly eyes are involved in eye development in many species including frogs, mice, and humans.
+- **Nervous system** - The central nervous systems of *Drosophila* and humans have a similar subdivision into a **brain** and **spinal cord** (ventral cord in *Drosophila*).  The **nerve cells** of *Drosophila* are quite similar to humans and many of the same genes are involved in their function.
+- **Heart** - The structure of the *Drosophila* heart is different from a human, but they use the same mechanisms to control their heartbeats.  Both human and *Drosophila* heart cells have electrical properties that allow them to operate without being stimulated by the nervous system, and they both have **pacemaker cells** to regulate their heartbeat.
+- **Digestive system** - The digestive systems of *Drosophila* and humans have similar organizations with regions that perform similar functions.  First is the **esophagus**,  which carries food to the **crop** (stomach in humans) where it is broken down.  Then the **midgut** (small intestine), and **hindgut** (large intestine) are responsible for absorbing the food so it can be used by the rest of the body.
+- **Reproductive tract** - Like humans, *Drosophila* have **testes** which produce sperm and **ovaries** which produce eggs.
 
 ### Genetics
 
@@ -126,11 +127,11 @@ The *Drosophila* genome:
     + 3 pairs of autosomes (non-sex chromosomes)
     + 1 pair of sex chromosomes.  Like humans, females have two X chromosomes, and males have an X and a Y chromosome.
 
-There are many genetic tools and techniques available for Drosophila, here are just a few:
+There are many genetic tools and techniques available for Drosophila; here are just a few:
 
 - **P-element transformation** - a technique that allows researchers to insert genes in the *Drosophila* genome
 - **GAL4/UAS expression** - a technique that allows researchers to control expression of a gene, “turning on” the gene in a specific tissue or under specific conditions
-- **Mutation libraries** - collections of fly strains where each strain has a mutation in a different gene in the genome.
+- **Mutation libraries** - collections of fly strains where each strain has a mutation in a different gene
 
 ### Life Cycle
 ![**Life‐cycle of Drosophila** from Farzana Khan Perveen (February 28th 2018). Introduction to Drosophila, Drosophila melanogaster - Model for Recent Advances in Genetics and Therapeutics, Farzana Khan Perveen, IntechOpen, DOI: 10.5772/67731. Available from: https://www.intechopen.com/books/drosophila-melanogaster-model-for-recent-advances-in-genetics-and-therapeutics/introduction-to-drosophila License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)](images/fly_life_cycle.png){width=50%}
@@ -181,4 +182,3 @@ Many of these disease models are available through *Drosophila* Stock Centers - 
 + Fruit flies have a short generation time, produce many offspring, and are easy to work with in the lab.  You can do lots of experiments without needing too much time or money.
 + Many important discoveries have been made using fruit flies
 + Fruit flies are used today for many types of research, from development to disease.  Many human diseases can be modeled and studied in fruit flies.
-

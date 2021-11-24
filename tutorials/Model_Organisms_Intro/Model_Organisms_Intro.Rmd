@@ -6,8 +6,9 @@ output:
     progressive: true
     version: 2.0
 subtitle: |
-  ![](images/cmoor_logo_notext.png){width=60%} ![](images/Clovis_logo.jpg){width=38%}
-  [Get Help](https://c-moor.slack.com/)
+  ![](images/cmoor_logo_notext.png){width=60%}
+  
+  [Get Help](https://help.c-moor.org/){target="_blank"}
 runtime: shiny_prerendered
 
 # The fields below will be used to create the first page of the tutorial.  You can use markdown.
@@ -52,6 +53,7 @@ Section 1. Content 1 has example quizes and exercises
 
   `r rmarkdown::metadata$summary`
   
+
 </div>
 
 
@@ -88,7 +90,6 @@ tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
 ```
 
 #### Version: `r tv`
-
 
 ## Introduction
 
@@ -237,4 +238,3 @@ Many other organisms have been used as model organisms, though they are less com
   - Fruit fly (*Drosophila melanogaster*)
   - Yeast (*Saccharomyces cerevisiae*)
   - E. coli (*Escherichia coli*, a type of bacteria)
-
