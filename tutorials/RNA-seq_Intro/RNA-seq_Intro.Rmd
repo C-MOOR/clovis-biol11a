@@ -6,8 +6,9 @@ output:
     progressive: true
     version: 2.0
 subtitle: |
-  ![](images/cmoor_logo_notext.png){width=60%} ![](images/Clovis_logo.jpg){width=38%}
-  [Get Help](https://c-moor.slack.com/)
+  ![](images/cmoor_logo_notext.png){width=60%}
+  
+  [Get Help](https://help.c-moor.org/){target="_blank"}
 runtime: shiny_prerendered
 
 # The fields below will be used to create the first page of the tutorial.  You can use markdown.
@@ -91,9 +92,9 @@ tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
 
 #### Version: `r tv`
 
-## Introduction
-
 ## What is RNA-seq?
+
+### RNA-seq measures gene expression
 
 DNA contains the instructions for life, telling every organism how to survive, grow, and reproduce.  Individual instructions in DNA are called "**genes**".
 
@@ -128,9 +129,9 @@ quiz(caption="DNA and gene expression",
 
 RNA-seq is a method for measuring which genes are being expressed (turned on), which can help us understand how cells do their jobs.  To express a gene, a cell makes copies of the gene's DNA sequence; these copies are made out of RNA.  This process is called **transcription**, and the RNAs are called **mRNAs** (messenger RNAs).  If we collect and read the mRNAs from a cell, we can figure out which genes were expressed in that cell.
 
-Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes, or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome** - the collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample.
+Depending on the scientific question being investigated, scientists can study expression of a single gene, a few genes, or all of the organism's genes. To look at the expression of all the genes at once, scientists study the **transcriptome** - the collection of mRNAs in a cell at a given point in time. The abundance of a particular mRNA tells us the level of expression for that gene. There are a few approaches to study the transcriptome, but we will focus on **RNA-seq**. RNA-seq uses Next-generation sequencing technology to sequence all the mRNAs in a sample.   We will cover this process in three steps: *in vivo*, *in vitro* and *in silico* (Figure 1).
 
-![Thomas Shafee (2016) Summary of RNA-seq. https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)](images/Summary_of_RNA-Seq.png){width=75%}
+![Figure 1: Thomas Shafee (2016) Summary of RNA-seq. https://commons.wikimedia.org/wiki/File:Summary_of_RNA-Seq.svg License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)](images/Summary_of_RNA-Seq.png){width=75%}
 
 ```{r what-is-RNA-seq}
 quiz(caption="RNA-seq",
@@ -168,8 +169,7 @@ Before transcriptome samples can be sequenced, scientists must (1) change the mR
 
 We cannot sequence RNA directly. Instead, scientists recode the information in the mRNA back into DNA, using an enzyme called **Reverse Transcriptase**. Reverse transcriptase can make a DNA copy, called cDNA, of all the mRNAs in a sample. The cDNA can then be sequenced using Next-generation Sequencing.
 
- It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing.
-
+It would be disadvantageous, however, to sequence all the RNA in a sample. Approximately 80% of the RNA in a eukaryotic cell is rRNA and another 15% is tRNA. Only a small fraction of the RNA is actually mRNA. Scientists can purify the mRNAs from the total RNA using an **Oligo-dT primer**. This method focuses on a feature that is unique to mRNAs: the Poly-A tail. An Oligo-dT primer is made of a string of thymine nucleotides that can base pair with the Poly A tails. This will target the reverse transcriptase enzyme directly to the mRNAs. Once the cDNA has been synthesized, the samples are prepared for sequencing.
 
 ```{r sequencing-questions, echo=FALSE}
 quiz(caption="RNA sequencing",
@@ -192,13 +192,11 @@ quiz(caption="RNA sequencing",
 )
 ```
 
-
 ## In silico - Computational Analysis
 
 Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**.
 
-In general, the sequences are first aligned to a **reference genome**. For RNA-seq, the sequences will align to exons of the expressed genes. After the reads have been aligned, a computer program can count how many reads came from each gene.**The more sequences that align to the gene, the higher the expression level of the gene**.  We can then compare gene expression from different cells, samples, and conditions to try to understand which genes are involved in different biological processes. 
-
+In general, the reads are first aligned to a **reference genome**. For RNA-seq, the reads will align to exons of the expressed genes. After the reads have been aligned, a computer program can count how many reads came from each gene.**The more reads that align to the gene, the higher the expression level of the gene**.  We can then compare gene expression from different cells, samples, and conditions to try to understand which genes are involved in different biological processes.
 
 ```{r bioinformatics-questions, echo=FALSE}
 quiz(caption="Computational Analysis",
@@ -212,8 +210,6 @@ quiz(caption="Computational Analysis",
   )
 )
 ```
-
-
 
 ## Summary
 
