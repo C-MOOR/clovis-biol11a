@@ -1,5 +1,5 @@
 ---
-title: "RNA-seq: Introduction"
+title: "Biotechnology: RNA-seq"
 output:
   learnr::tutorial:
     css: css/cmoor.css

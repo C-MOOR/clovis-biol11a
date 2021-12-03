@@ -1,13 +1,14 @@
 ---
-title: "Biotechnology Resources: Next-Gen Sequencing"
+title: "Biotechnology: Next-Gen Sequencing"
 output:
   learnr::tutorial:
     css: css/cmoor.css
     progressive: true
     version: 2.0
 subtitle: |
-  ![](images/cmoor_logo_notext.png){width=60%} ![](images/Clovis_logo.jpg){width=38%}
-  [Get Help](https://c-moor.slack.com/)
+  ![](images/cmoor_logo_notext.png){width=60%}
+  
+  [Get Help](https://help.c-moor.org/){target="_blank"}
 runtime: shiny_prerendered
 
 # The fields below will be used to create the first page of the tutorial.  You can use markdown.
@@ -114,7 +115,7 @@ There are 3 major components of a next-gen sequencing project:
     + This is sometimes called the "*in vitro*" part of the process, because it is done in test tubes and similar equipment - "vitro" is Latin for "glass".  You may have heard of "in vitro fertilization".  Scientists and doctors use the phrase "in vitro" to mean processes done in the lab as opposed to in a living organism.
 3. **Computational Analysis**: Once the sequences have been read, computers are used to analyze the sequence data.  This might involve counting the number sequences from different genes, or looking for mutations.  Genomes are much too long for a human to read themselves, so scientists have developed computer programs to help.
     + This is sometimes called the "*in silico*" part of the process, since it is done on a computer and computers use silicon chips.  This is a bit of a joke - *in vivo* and *in vitro* are Latin phrases that have been used in science for decades.  "*In silico*" is not a real Latin phrase, just scientists having fun :)
-
+    
 ## *In vivo* - Sample Collection
 
 All sequencing projects start with biological samples.  It’s important to keep this in mind, as you think about a sequencing project.  What sorts of challenges and quirks might arise from the sample collection process?
@@ -154,6 +155,7 @@ At the sequencing facility, the sample is loaded into a lane on a special glass 
 Now, we can finally start sequencing the DNA fragments. To identify each base of the sequence, the four DNA nucleotides (A, T, G, C) are labeled with a different color. The first base is added to each of the millions of clusters.  A special camera is used to detect the color for each cluster, and the computer records the first base identity for all the clusters. Then a second base is added to every cluster, the camera detects the second color, and the computer records the second base. This continues for 50-100bp. This process is known as sequencing by synthesis. One lane can produce **up to 150 million short sequences**, each corresponding to one cluster in the lane. Once the sequencing is complete, the data is sent back to the scientists for analysis.
 
 The process of Illumina Sequencing can be difficult to conceptualize. Watch the video below to view an animation of the process:
+
 ![](https://youtu.be/fCd6B5HRaZ8)
 
 ```{r sequencing-questions, echo=FALSE}
@@ -177,6 +179,8 @@ quiz(caption="Illumina sequencing",
 )
 ```
 
+
+
 ## *In silico* - Computational Analysis
 
 Back at the lab, scientists use computational methods to make sense of the millions of sequences, called **reads**.  There are many methods of data analysis that can be used, depending on the project.
@@ -185,12 +189,12 @@ Back at the lab, scientists use computational methods to make sense of the milli
 
 In many projects, the first step of analysis is to match the reads up with the full genome of the organism and figure out where they came from.
 
-Sequencing reads are a bit like having short phrases (reads) from a whole book (the genome).  In order to understand what they mean, we need to find where in the book they came from.
+Sequencing reads are a bit like short phrases (reads) from a whole book (the genome).  In order to understand what they mean, we need to find where in the book they came from.
 
 
 ### Counting
 
-Perhaps the most common type of sequencing analysis involves counting the number of reads that come from particular genes (or pther regions of the genome).
+Perhaps the most common type of sequencing analysis involves counting the number of reads that come from particular genes (or other regions of the genome).
 
 Some examples of questions you could address with read counting analysis include:
 

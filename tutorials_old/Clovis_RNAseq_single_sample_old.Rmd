@@ -34,76 +34,14 @@ This lab will introduce you to real RNA-seq data, just like professional scienti
 
 #### Learning Goals
 
-3. Define bioinformatics and its role in biology
-4. Use R to analyze HTSeq files
-5. Create and analyze histograms from HTSeq files
-
- There are a few methods for next-gen sequencing, but we will focus on Illumina sequencing.
-
- The following images are from:
-
-* [Illumina HiSeq 2500](https://commons.wikimedia.org/wiki/File:Illumina_HiSeq_2500.jpg) by Konrad Förstner, 3 December 2013. License: [Creative Commons CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
-* [Next generation sequencing slide](https://commons.wikimedia.org/wiki/File:Next_generation_sequencing_slide.jpg) by Bainscou, 7 April 2015. License: [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/deed.en)
-
-![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Illumina_HiSeq_2500.jpg){width=47.5%} ![](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Next_generation_sequencing_slide.jpg){width=51.1%}
-
-Illumina Sequencing uses a method called sequencing by synthesis. To prepare a RNA-seq sample, the cDNA is first fragmented into 100-200bp pieces and special adapters are attached to the ends of the fragmented cDNA. These adapters will be important for sequencing the cDNA. At this point, the samples are usually sent off to a facility that has an Illumina Sequencer machine (Figure 2a).
-
-At the sequencing facility, the sample is loaded into a lane on a special glass chip (Figure 2b). The chip is covered with millions of DNA sequences complementary to the special adapters. This complementarity will allow the adapters on the cDNA fragments to hybridize with the DNA molecules in the lane. The chip, which can hold up to eight samples, is then loaded into an Illumina Sequencing machine. Through a process known as bridge amplification, each individual cDNA fragment is amplified. This step is important to increase the signal from each cDNA fragment to the computer, which cannot detect a single DNA molecule.  The final result is 150 million clusters of DNA molecules, one for each of the original cDNA fragments. Now, we can finally start sequencing the cDNA fragments. To identify each base of the sequence, the four DNA nucleotides (A, T, G, C) are labeled with a different color. The first base is added to each of the millions of clusters and the computer records the first base identity for all the clusters. A second base is added to every cluster and the computer records the second base. This continues for 50-100bp. This process is known as sequencing by synthesis. One lane can produce **up to 150 million short sequences** each corresponding to one cluster in the lane. Once the sequencing is complete, the data is sent back to the scientists for analysis.
-
-The process of Illumina Sequencing can be difficult to conceptualize. Watch the video below to view an animation of the process:
-
-![](https://www.youtube.com/watch?v=fCd6B5HRaZ8)
+1. Use R to analyze HTSeq files
+1. Create and analyze histograms from HTSeq files
 
 
-
-```{r sequencing-questions, echo=FALSE}
-quiz(caption="RNA sequencing",
-  question("How does an Illumina sequencer determine whether a base is an A, T, C or G?",
-    answer("Each nucleotide has its own color", correct=TRUE),
-    answer("It adds only one base at a time"),
-    answer("The size of a DNA fragment"),
-    answer("Chain termination"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("What method of sequencing does Illumina use?",
-    answer("Sequencing by synthesis", correct=TRUE),
-    answer("Bridge amplification"),
-    answer("Polymerase Chain Reaction"),
-    answer("Chain termination sequencing"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  )
-)
-```
-
-
-## In silico - Computational Analysis
-
-When biologists use computer science to answer questions about biology, usually related to macromolecules (e.g. RNA and DNA), it is called **bioinformatics**. As scientists continue to collect more and more data, the field of bioinformatics continues to grow.
-
-Today's lab will investigate how scientists use computer science to analyze RNA-seq data. 
-The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files.
-The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
-
-
+Today's lab will investigate how scientists use computer science to analyze RNA-seq data. The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files. The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
 
 The RNA-seq libraries from today's lab are from:
 [eLife 2013;2:e00886 DOI: 10.7554/eLife.00886.](https://elifesciences.org/articles/00886)
-
-
-```{r bioinformatics-questions, echo=FALSE}
-quiz(caption="Computational Analysis",
-  question("The field that combines computer science with biology is known as what?",
-    answer("Computational Biology"),
-    answer("Computer Science"),
-    answer("Bioinformatics", correct=TRUE),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  )
-)
-```
 
 ## Histograms
 Histograms are a useful way to get an overview of the shape of your data in a single dimension.  There is a brief explanation below if you need some review.  If you're comfortable with histograms, feel free to skip this section.  If you're not sure, you can always come back to this section later by clicking on the table of contents on the upper left.
