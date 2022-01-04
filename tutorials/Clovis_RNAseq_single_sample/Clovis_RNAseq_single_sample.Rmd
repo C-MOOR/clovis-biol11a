@@ -1,3 +1,32 @@
+---
+title: "Introduction to RNA-seq data"
+output:
+  learnr::tutorial:
+    css: css/cmoor.css
+    progressive: true
+    version: 1.4
+subtitle: |
+  ![](images/cmoor_logo_notext.png){width=60%}
+  
+  [Get Help](https://help.c-moor.org/){target="_blank"}
+runtime: shiny_prerendered
+
+# The fields below will be used to create the first page of the tutorial.  You can use markdown.
+# For summary, all new lines must be indented to the same level as the first line.
+# The image must be surrounded with quotes
+summary: |
+  This lab will introduce you to real RNA-seq data, just like professional scientists work with.  Today you will learn what RNA-seq data looks like and will spend some time exploring data from a single biological sample.  In the next lab you will learn how to compare RNA-seq data from different samples.
+image: "![](images/replace_me.png)"
+image_caption: "Welcome page image"
+author:
+  - "[Dr. Katherine Cox](https://c-moor.github.io/portfolio/coxkatherine/)"
+  - "[Dr. Stephanie Coffman](https://c-moor.github.io/portfolio/coffmanstephanie/)"
+learning_goals:
+  - "Use R to analyze HTSeq files"
+  - "Create and analyze histograms from HTSeq files"
+time: ""
+prerequisites: "None"
+---
 
 ```{r setup, include=FALSE}
 library(learnr)
@@ -8,40 +37,124 @@ options(scipen=5)
 
 # Get a single file as a data.frame (readcounts) for use in student coding blocks.
 # Also make a labeled version (a).
-readCounts <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891601.htseq" )
+#readCounts <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891601.htseq" )
+readCounts <- read.table( "../data/SRR891601.htseq" )
 readCounts <- filter(readCounts, str_detect(V1, "FBgn"))
 a <- readCounts
 colnames(a) <- c("GeneID", "readCount")
 
 # Make a data.frame with reads from a copper (Cu) sample for looking at the "lab" gene
-readCounts_Cu <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891616.htseq" )
+#readCounts_Cu <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891616.htseq" )
+readCounts_Cu <- read.table( "../data/SRR891616.htseq" )
 readCounts_Cu <- filter(readCounts_Cu, str_detect(V1, "FBgn"))
 
 # Make a data.frame with reads from an anterior (a1) sample for looking at the "lab" gene
-readCounts_a1 <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891610.htseq" )
+#readCounts_a1 <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891610.htseq" )
+readCounts_a1 <- read.table( "../data/SRR891610.htseq" )
 readCounts_a1 <- filter(readCounts_a1, str_detect(V1, "FBgn"))
 
 # Get income data for the log-scaling practice section
+#i <- read_csv("~/workspace/c_moor_data/instructors/preprocessed_data/s.ipums.la.99.gz", col_names = FALSE)
 i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
 income <- as.numeric(i$X8)
 ```
 
+
+<!---
+Don't edit the Welcome page, it will be filled in automatically using the information from the YAML header
+Edit the rest of the document as you like
+There are some suggested sections to provide a standard order across our tutorials, but they may not all be needed/appropriate for all tutorials.
+Section 1. Content 1 has example quizes and exercises
+-->
+
 ## Welcome {.splashpage}
 
-#### Introduction: Analysis of RNA-seq data
+### `r rmarkdown::metadata$title`
 
-This lab will introduce you to real RNA-seq data, just like professional scientists work with.  Today you will learn what RNA-seq data looks like and will spend some time exploring data from a single biological sample.  In the next lab you will learn how to compare RNA-seq data from different samples.
+<div class="splashpage-container">
+  <figure class="splashpage-image">
+  `r rmarkdown::metadata$image`{width=100%}
+  <figcaption class="caption">`r rmarkdown::metadata$image_caption`</figcaption>
+  </figure>
+
+  `r rmarkdown::metadata$summary`
+  
+
+</div>
+
 
 #### Learning Goals
 
-1. Use R to analyze HTSeq files
-1. Create and analyze histograms from HTSeq files
+```{r}
+# Extract learning goals from YAML and add HTML tags to make an ordered list
+learningGoals <- rmarkdown::metadata$learning_goals
+learningGoals <- paste("<li>", learningGoals, "</li>", sep="", collapse="")
 
+```
+
+<ol>
+`r learningGoals`
+</ol>
+
+#### Authors:
+
+```{r}
+# Extract authors from YAML and add HTML tags to make a list
+authorList <- rmarkdown::metadata$author
+authorList <- paste("<li>", authorList, "</li>", sep="", collapse="")
+
+```
+
+<ul>
+`r authorList`
+</ul>
+
+
+```{r}
+# Extract the tutorial version from the YAML data and store it so we can print it using inline r code below.  This can't be done directly inline because the code for extracting the YAML data uses backticks
+tv <- rmarkdown::metadata$output$`learnr::tutorial`$version
+```
+
+#### Version: `r tv`
+
+## Introduction
 
 Today's lab will investigate how scientists use computer science to analyze RNA-seq data. The data you will look at today has already been processed using a program called HTSeq. This program aligns the sequences to the reference genome and counts how many sequences align to each gene, producing files known as HTSeq files. The following tutorial will walk your through how to analyze an HTSeq file using the programming language R.
 
 The RNA-seq libraries from today's lab are from:
 [eLife 2013;2:e00886 DOI: 10.7554/eLife.00886.](https://elifesciences.org/articles/00886)
+
+## R Commands
+
+Here is a reminder of some basic R commands, for your convenience:
+
+* `head(df)` prints the first few rows of the dataframe named `df`
+* `tail(df)` prints the last few rows of the dataframe named `df`
+* `summary(df)` prints some summary statistics for each column of the dataframe named `df`, such as min, mean, median, and max for numeric columns
+* `log(v)`, `log(v, 10)` if `v` is a vector of numbers, these will return a vector containining the natural log or log10 of the items in `v`
+* `plot(x,y)` plots the vector `x` against the vector `y`. Usually this will be a scatterplot, but R will try to guess a sensible plot if you give it data that doesn't fit in a scatter plot
+
+You can "filter" a dataframe (pick out only some of the rows and columns).  Some examples:
+
+* `df$c` finds the column named `c` from at dataframe named `df` (keeps all rows)
+* `filter(df, c>5)` finds all rows where the value in column `c` is greater than 5 (keeps all columns)
+* `filter(df, c==5)` finds all rows where the value in column `c` is exactly equal to 5 (keeps all columns)
+* `filter(df, c>5 & d<=10)` finds all rows where the value in column `c` is greater than 5 **and** the value in column `d` is less than or equal to 10 (keeps all columns)
+* `filter(df, c=="some_name")` finds all rows where the value in column `c` is exactly "some_name"
+* `filter(df, str_detect(c, "name"))` finds all rows where the value in column `c` contains "name" (things like "some_name", "other_name", as well as "name")
+
+You can usually combine commands any way you like, using parentheses.  As long as the output of the inner command is appropriate input for the outer command, things will probably work fine.  Some examples:
+
+* `sum(df$c)` finds the sum of the the column named `c` in the dataframe named `df`
+* `plot(df$c, df$d)` plots columns of the dataframe named `df`, putting the column named `c` on the x axis and the column named `d` on the y axis
+
+Here are commands for plotting basic histograms in R:
+
+* `hist(v)` is a specialized version of plot, which will generate a histogram of the items in the vector `v`
+* `hist(v, breaks=10)` makes a histogram with 10 bars
+* `hist(v, breaks=c(5,10,15) )` makes a histogram that splits the data into bins at the points listed in the command.  For this example, the first bar would contain values from 0 to 5; the second bar would contain values from 5 to 10; and the third bar would contain values from 10 to 15.
+* `hist(log(v))` plots a histogram of the natural log of the values in the vector named `v`
+* `hist(log(v + 0.1))` plots a histogram of the natural log of the values in the vector named `v` + 0.1.  This is useful for plotting data that contains values of zero.
 
 ## Histograms
 Histograms are a useful way to get an overview of the shape of your data in a single dimension.  There is a brief explanation below if you need some review.  If you're comfortable with histograms, feel free to skip this section.  If you're not sure, you can always come back to this section later by clicking on the table of contents on the upper left.
@@ -110,6 +223,7 @@ For example:
 hist(iris$Petal.Length, breaks=c(1,2,3,4,5,6,7) )
 ```
 
+
 ## Logarithms and Log Scaling
 
 Working with RNA-seq data often involves expressing values on a log scale.  There are a few videos and explanations below if you need some review.  If you're comfortable with logarithms, feel free to skip this section.  If you're not sure, you can always come back to this section later by clicking on the table of contents on the upper left.
@@ -151,38 +265,6 @@ hist(log10(income+0.1))
 
 The bar at -1 contains all the people making \$0 (log10 of 0.1 is -1).  In this case it turns out not to be a big deal, there aren't too many people making \$0.  But you do have to be careful when log scaling data not to forget about the zeroes.
 
-## R cheat sheet
-
-Here is a reminder of some basic R commands, for your convenience:
-
-* `head(df)` prints the first few rows of the dataframe named `df`
-* `tail(df)` prints the last few rows of the dataframe named `df`
-* `summary(df)` prints some summary statistics for each column of the dataframe named `df`, such as min, mean, median, and max for numeric columns
-* `log(v)`, `log(v, 10)` if `v` is a vector of numbers, these will return a vector containining the natural log or log10 of the items in `v`
-* `plot(x,y)` plots the vector `x` against the vector `y`. Usually this will be a scatterplot, but R will try to guess a sensible plot if you give it data that doesn't fit in a scatter plot
-
-You can "filter" a dataframe (pick out only some of the rows and columns).  Some examples:
-
-* `df$c` finds the column named `c` from at dataframe named `df` (keeps all rows)
-* `filter(df, c>5)` finds all rows where the value in column `c` is greater than 5 (keeps all columns)
-* `filter(df, c==5)` finds all rows where the value in column `c` is exactly equal to 5 (keeps all columns)
-* `filter(df, c>5 & d<=10)` finds all rows where the value in column `c` is greater than 5 **and** the value in column `d` is less than or equal to 10 (keeps all columns)
-* `filter(df, c=="some_name")` finds all rows where the value in column `c` is exactly "some_name"
-* `filter(df, str_detect(c, "name"))` finds all rows where the value in column `c` contains "name" (things like "some_name", "other_name", as well as "name")
-
-You can usually combine commands any way you like, using parentheses.  As long as the output of the inner command is appropriate input for the outer command, things will probably work fine.  Some examples:
-
-* `sum(df$c)` finds the sum of the the column named `c` in the dataframe named `df`
-* `plot(df$c, df$d)` plots columns of the dataframe named `df`, putting the column named `c` on the x axis and the column named `d` on the y axis
-
-Here are commands for plotting basic histograms in R:
-
-* `hist(v)` is a specialized version of plot, which will generate a histogram of the items in the vector `v`
-* `hist(v, breaks=10)` makes a histogram with 10 bars
-* `hist(v, breaks=c(5,10,15) )` makes a histogram that splits the data into bins at the points listed in the command.  For this example, the first bar would contain values from 0 to 5; the second bar would contain values from 5 to 10; and the third bar would contain values from 10 to 15.
-* `hist(log(v))` plots a histogram of the natural log of the values in the vector named `v`
-* `hist(log(v + 0.1))` plots a histogram of the natural log of the values in the vector named `v` + 0.1.  This is useful for plotting data that contains values of zero.
-
 
 ## First Look at RNA-seq Data
 
@@ -200,7 +282,6 @@ head(a)
 
 In this file, the gene identifiers look like this: FBgnXXXXXXX, with the X's being different numbers.  FB stands for [FlyBase](http://flybase.org), a database for *Drosophila* research, and gn stands for gene.  There are ~17000 *Drosophila melanogaster* genes.  Each known *Drosophila* gene has its own FlyBase ID, and you can use the FlyBaseID to find information about the genes such as what they do and whether they are related to any human genes.
 
-
 ### Taking a first look at your data
 
 It's always a good idea to take a quick look at your data, see if it makes sense, and get a rough idea of what it looks like.
@@ -213,7 +294,7 @@ It's always a good idea to take a quick look at your data, see if it makes sense
     + What's the mean and median value of numeric columns? Does this make sense?
 
 For the code below, an htseq file has been stored as a dataframe named `readCounts`.
-Use some R commands to explore the read count data from the htseq file, and see if it makes sense to you.  What's in each column?  Are the values reasonable?  **You can look at the R Cheat Sheet page or click on the Hints button if you need help.**
+Use some R commands to explore the read count data from the htseq file, and see if it makes sense to you.  What's in each column?  Are the values reasonable?  **You can look at the R Commands page or click on the Hints button if you need help.**
 
 ```{r explore-htseq-exercise, exercise=TRUE, exercise.lines=10}
 readCounts
@@ -228,15 +309,22 @@ tail()
 ```
 
 ```{r explore-htseq-exercise-hint-3}
+tail(readCounts)
+```
+
+```{r explore-htseq-exercise-hint-4}
 summary()
 ```
 
+```{r explore-htseq-exercise-hint-5}
+summary(readCounts)
+```
 
 ### Explore an example htseq file
 
-Use the codeblock above to enter some R commands and answer the following questions about the RNA-seq data.  **If you need help, try clicking the "Hints" button at the top of the codeblock (above) or look at the R Cheat Sheet page.**
+Use the codeblock above to enter some R commands and answer the following questions about the RNA-seq data.  **If you need help, try clicking the "Hints" button at the top of the codeblock (above) or look at the R Commands page.**
 
- ```{r explore-htseq-quiz, echo=FALSE}
+```{r explore-htseq-quiz, echo=FALSE}
  quiz(caption = "What is this data?",
    question("What's in the first column ?",
    answer("Gene IDs", correct = TRUE),
@@ -266,8 +354,8 @@ Use the codeblock above to enter some R commands and answer the following questi
     allow_retry = TRUE,
     random_answer_order = TRUE
   )
- )
- ```
+)
+```
 
 ## Summary Statistics for RNA-seq
 
@@ -282,7 +370,7 @@ In general, the values that you expect as an answer to these questions will vary
 
 ### Summarize an example htseq file
 
-Use the codeblock below to run R commands and answer the following questions about the RNA-seq data.  The code for loading the data into a dataframe named `readCounts` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
+Use the codeblock below to run R commands and answer the following questions about the RNA-seq data.  The code for loading the data into a dataframe named `readCounts` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Commands page.**
 
 ```{r summarize-htseq-exercise, exercise=TRUE}
 readCounts
@@ -367,6 +455,7 @@ quiz(caption = "Summary statistics for RNA-seq",
 )
 ```
 
+
 ## Histograms of RNA-seq Data
 
 #### Before You Start
@@ -400,7 +489,7 @@ This pattern is fairly typical for RNA-seq data.  There is a peak near zero, con
 
 Here is a simpler histogram of some RNA-seq data.  We have reduced the number of "bins" (bars), so that it will be easier to answer questions about the plot.  This plot is also *Drosophila* data, though it's from a different sample than the one we've been analyzing so far.  After getting some practice interpreting this graph, you'll take another look at the `readCounts` data you've been working with.
 
-![Log10 Read Counts for Drosophila RNA-seq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
+![Log10 Read Counts for Drosophila RNA-seq Sample by Katherine Cox. License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)](images/Histogram_example.png)
 
 ### Answer the following questions about the above plot.
 ```{r, practice-hist-quiz, echo=FALSE}
@@ -451,7 +540,7 @@ quiz(caption="Histogram Practice",
 
 Take a look at this graph again.
 
-![Log10 Read Counts for Drosophila RNA-seq sample 2](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/Histogram_example.png)
+![Log10 Read Counts for Drosophila RNA-seq Sample by Katherine Cox. License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)](images/Histogram_example.png)
 
 For this *Drosophila* sample, we expect there to be 17559 genes.
 
@@ -481,7 +570,7 @@ question("What is log10 of zero?",
 
 If you were to look at the read count data for this histogram, you would see that roughly 6000 genes have a read count of zero, and they have been excluded from the histogram.  When you ask R to do something impossible, sometimes it will give you an error, or sometimes it will do its best to guess how to handle it.  In this case, it excluded all the zeros.
 
-One solution to this problem is to add 0.1 to every read count before doing the log transformation, using `log10(v + 0.1)` if `v` is a vector containing your data.  Use the code block below to plot a histogram of log10(your data) and of log10(your data + 0.1).  Notice how this changes the shape of your data  **If you need help, try clicking the "Hints" button at the top of the codeblock (below) or look at the R Cheat Sheet page**.
+One solution to this problem is to add 0.1 to every read count before doing the log transformation, using `log10(v + 0.1)` if `v` is a vector containing your data.  Use the code block below to plot a histogram of log10(your data) and of log10(your data + 0.1).  Notice how this changes the shape of your data  **If you need help, try clicking the "Hints" button at the top of the codeblock (below) or look at the R Commands page**.
 
 ```{r histlog-fixzeros-htseq-exercise, exercise=TRUE, exercise.eval=TRUE}
 readCounts
@@ -520,7 +609,7 @@ quiz(caption="Re-Examine Your Data",
 ```{r histlog-fixzeros-htseq-exercise-hint-1}
 "
 Plot a histogram of log10 of the data:
-Scroll up to the top of the page or look at the R Cheat Sheet if you need a reminder of what this code should look like.
+Scroll up to the top of the page or look at the R Commands page if you need a reminder of what this code should look like.
 "
 ```
 
@@ -591,8 +680,7 @@ When you first start analyzing a new dataset, it's often a good idea to see if y
 
 In the [Marianes and Spradling](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3755342/) paper, they look at the expression data for the *lab* gene.
 
-![Figure 2D](https://raw.githubusercontent.com/C-MOOR/clovis-biol11a/master/assets/images/elife-00886-fig2D.jpg){ width=100% }
-**Figure 2D** Analysis of seven genes and their gene expression across each region of the gut.
+![**Figure 2D** Analysis of seven genes and their gene expression across each region of the gut.  From Marianes and Spradling (2013) [eLife 2013;2:e00886](https://doi.org/10.7554/eLife.00886)  License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)](images/elife-00886-fig2D.jpg){ width=100% }
 
 They highlight this gene because previous research had discovered that it's involved in the copper region of the midgut.  They found that it was highly expressed in the copper (Cu) region, and not in other regions.  This was encouraging, because it showed that their data agreed with results from other experiments.
 
@@ -738,7 +826,7 @@ Divide this number by the total number of genes (17559)
 
 We can use a histogram to get a better sense of how *lab* expression compares to expression of other genes in this sample.
 
-Use the codeblock below to run R commands, plot a histogram, and answer the following questions about the *lab* gene and the copper region.  The code for loading data from the copper region into a dataframe named `readCounts_Cu` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
+Use the codeblock below to run R commands, plot a histogram, and answer the following questions about the *lab* gene and the copper region.  The code for loading data from the copper region into a dataframe named `readCounts_Cu` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Commands page.**
 
 ```{r lab-Cu-graph-exercise, exercise=TRUE}
 
@@ -818,12 +906,11 @@ hist(log10(readCounts_Cu$V2 + 0.1), main="Log10 Read Counts for copper region")
 "
 ```
 
-
 ### Compare expression data for *lab* in the copper and anterior (a1) regions
 
 Now we've seen that the *lab* gene is highly expressed in the copper region.  But what if it's just highly expressed in all regions?  Marianes and Spradling reported that it was high in the copper region **and** low in other regions.  Let's take a look at *lab* expression in the anterior (a1) region.  For the code below, an htseq file containing data from the copper region has been stored as a data.frame named `readCounts_Cu`.  An htseq file from the anterior region (a1) has been stored as a data.frame named `readCounts_a1`.
 
-Use the codeblock below to run R commands and answer the following questions about the *lab* gene and the copper region.  The code for loading data from the copper region into a dataframe named `readCounts_Cu` and the data from the anterior region into a dataframe named `readCounts_a1` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Cheat Sheet page.**
+Use the codeblock below to run R commands and answer the following questions about the *lab* gene and the copper region.  The code for loading data from the copper region into a dataframe named `readCounts_Cu` and the data from the anterior region into a dataframe named `readCounts_a1` has already been run for you.  **If you need help, click the Hints button at the top of the box or look at the R Commands page.**
 
 ```{r lab-a1-exercise, exercise=TRUE}
 
@@ -894,6 +981,7 @@ Looking good so far!  We were able to see high expression of the *lab* gene in t
 
 However, this is just a start.  We only looked at one of the copper region samples and one of the anterior (a1) region samples, even though we have three samples from each region.  We haven't looked at the other gut regions that we have data for.  And in our comparison, we didn't do any "normalization" - adjusting the raw read counts to make up for experimental differences between samples (like getting more cells from some samples than others).  In the next lab we will learn easier and more accurate ways to compare gene expression across many different samples.
 
+
 ## Try it Out!
 
 Now that you know how to take a first look at RNA-seq data, you can try it out on some real scientific data!
@@ -926,7 +1014,8 @@ For each region, there are 3 data files, each containing RNA-seq data.  We colle
 
 The following table lists the filename for each sample:
 ```{r}
-read.table("/home/idies/workspace/c_moor_data/marianes-regions/htseq/midgut.tsv", header=TRUE)
+#read.table("/home/idies/workspace/c_moor_data/marianes-regions/htseq/midgut.tsv", header=TRUE)
+read.table("../data/midgut.tsv", header=TRUE)
 ```
 
 Use the table to figure out the file name (starting with "SRR") for the sample you want to examine.  Use the codeblocks below to explore the data, calculating summary statistics and plotting out histograms.  There are several blocks for your convenience, use as many as you like.
@@ -962,3 +1051,4 @@ readCounts <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/ht
 ```{r freeplay6-exercise, exercise=TRUE, exercise.eval=FALSE, exercise.setup="prepare-tryout"}
 readCounts <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/FILENAMEHERE.htseq" )[1:17559,]
 ```
+
