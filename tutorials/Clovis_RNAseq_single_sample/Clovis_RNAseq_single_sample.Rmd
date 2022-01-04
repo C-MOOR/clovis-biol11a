@@ -37,25 +37,25 @@ options(scipen=5)
 
 # Get a single file as a data.frame (readcounts) for use in student coding blocks.
 # Also make a labeled version (a).
-#readCounts <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891601.htseq" )
-readCounts <- read.table( "../data/SRR891601.htseq" )
+readCounts <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891601.htseq" )
+#readCounts <- read.table( "../../data/SRR891601.htseq" )
 readCounts <- filter(readCounts, str_detect(V1, "FBgn"))
 a <- readCounts
 colnames(a) <- c("GeneID", "readCount")
 
 # Make a data.frame with reads from a copper (Cu) sample for looking at the "lab" gene
-#readCounts_Cu <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891616.htseq" )
-readCounts_Cu <- read.table( "../data/SRR891616.htseq" )
+readCounts_Cu <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891616.htseq" )
+#readCounts_Cu <- read.table( "../../data/SRR891616.htseq" )
 readCounts_Cu <- filter(readCounts_Cu, str_detect(V1, "FBgn"))
 
 # Make a data.frame with reads from an anterior (a1) sample for looking at the "lab" gene
-#readCounts_a1 <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891610.htseq" )
-readCounts_a1 <- read.table( "../data/SRR891610.htseq" )
+readCounts_a1 <- read.table( "/home/idies/workspace/c_moor_data/marianes-regions/htseq/SRR891610.htseq" )
+#readCounts_a1 <- read.table( "../../data/SRR891610.htseq" )
 readCounts_a1 <- filter(readCounts_a1, str_detect(V1, "FBgn"))
 
 # Get income data for the log-scaling practice section
-#i <- read_csv("~/workspace/c_moor_data/instructors/preprocessed_data/s.ipums.la.99.gz", col_names = FALSE)
-i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
+i <- read_csv("~/workspace/c_moor_data/instructors/preprocessed_data/s.ipums.la.99.gz", col_names = FALSE)
+#i <- read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/ipums-mld/s.ipums.la.99.gz", col_names = FALSE)
 income <- as.numeric(i$X8)
 ```
 
@@ -126,7 +126,28 @@ The RNA-seq libraries from today's lab are from:
 
 ## R Commands
 
-Here is a reminder of some basic R commands, for your convenience:
+In this lab you will be using the programming language R to explore RNA-seq data.  Don't worry if you've never done any programming before!  We'll give you a quick explanation, and have a cheat sheet of R commands for you below.
+
+### R commands
+
+R is a programming language used for data analysis.  It's used by scientists, doctors, businesses, and many others to explore all sorts of data.
+
+Most of the time you will be using R **functions** to analyze your data.  R functions generally take some input (usually your data) and produce some output (such as a plot).
+
+To run a function in R, you type the name of the function followed by parentheses, and you put the input(s) to the function inside the parentheses, separated by commas:
+
+`functionName( INPUT1, INPUT2 )`
+
+Inputs tell the function how to run.  For example, the `summary()` command needs one input: what data it should summarize.  If we want a summary of our RNA-seq `readCounts`, we would type
+
+`summary(readCounts)`
+
+### R cheatsheet
+
+Here is a list of some basic R commands.
+
+In the commands below, we have shown examples of inputs (such as `df` or `v`).  When you run commands yourself, you will want to replace the example inputs inside the parentheses with the data you want to analyze.
+
 
 * `head(df)` prints the first few rows of the dataframe named `df`
 * `tail(df)` prints the last few rows of the dataframe named `df`
@@ -1014,8 +1035,8 @@ For each region, there are 3 data files, each containing RNA-seq data.  We colle
 
 The following table lists the filename for each sample:
 ```{r}
-#read.table("/home/idies/workspace/c_moor_data/marianes-regions/htseq/midgut.tsv", header=TRUE)
-read.table("../data/midgut.tsv", header=TRUE)
+read.table("/home/idies/workspace/c_moor_data/marianes-regions/htseq/midgut.tsv", header=TRUE)
+#read.table("../../data/midgut.tsv", header=TRUE)
 ```
 
 Use the table to figure out the file name (starting with "SRR") for the sample you want to examine.  Use the codeblocks below to explore the data, calculating summary statistics and plotting out histograms.  There are several blocks for your convenience, use as many as you like.
